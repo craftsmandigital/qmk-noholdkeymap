@@ -37,6 +37,11 @@ enum combo_events {
   NUM_TOGLE,
   MOUSE_TOGLE,
   GUI_NUM,
+
+  CTRL_TOGLE,
+  ALT_TOGLE,
+  SHIFT_TOGLE,
+  GUI_TOGLE,
 };
 
 // remember key stuff
@@ -58,6 +63,11 @@ const uint16_t PROGMEM num_combo[] = {LSFT_T(KC_F),		LT(NUM, KC_BSPC), COMBO_END
 const uint16_t PROGMEM mouse_combo[] = {LT(MOUSE, KC_DOT),LSFT_T(KC_J), COMBO_END};
 const uint16_t PROGMEM gui_num_combo[] = {LCTL_T(KC_K), LALT_T(KC_L), COMBO_END};
 
+const uint16_t PROGMEM ctrl_combo[] = {KC_W,	KC_E, COMBO_END};
+const uint16_t PROGMEM shift_combo[] = {KC_E,	KC_R, COMBO_END};
+const uint16_t PROGMEM alt_combo[] = {KC_Q,		KC_W, COMBO_END};
+const uint16_t PROGMEM gui_combo[] = {KC_W, 	KC_R, COMBO_END};
+
 
 combo_t key_combos[] = {
   [JK_ESC] = COMBO(jk_combo, KC_ESC),
@@ -69,6 +79,12 @@ combo_t key_combos[] = {
   [MOUSE_TOGLE] = COMBO(mouse_combo, TG(MOUSE)),
   // [QW_SFT] = COMBO(qw_combo, KC_LSFT)
   // [SD_LAYER] = COMBO(layer_combo, MO(_LAYER)),
+
+  [SHIFT_TOGLE] = COMBO(shift_combo, OSM(MOD_LSFT)),
+  [CTRL_TOGLE] = COMBO(ctrl_combo, OSM(MOD_LCTL)),
+  [ALT_TOGLE] = COMBO(alt_combo, OSM(MOD_LALT)),
+  [GUI_TOGLE] = COMBO(gui_combo, OSM(MOD_LGUI)),
+
 };
 
 // --------------------------------------------------------------------------------
