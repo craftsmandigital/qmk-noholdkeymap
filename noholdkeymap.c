@@ -17,6 +17,10 @@
 #include QMK_KEYBOARD_H
 
 #include "noholdkeymap.h"
+
+#include "keymap_us_international.h"
+#include "sendstring_us_international.h"
+
 #include "keyboard-layout.h" // Layout has its own file
 
 
