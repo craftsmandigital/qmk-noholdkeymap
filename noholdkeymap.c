@@ -27,13 +27,13 @@
 
 
 // static bool holding_oneshot_layer = false;
-uint16_t my_key_pressed_timer = 0;
+// uint16_t my_key_pressed_timer = 0;
 
 
 
 // --------------------------------------------------------------------------------
 // combos stuff
-enum combo_events {
+/* enum combo_events {
   JK_ESC,
   DF_TAB,
   NAV_TOGLE,
@@ -46,20 +46,20 @@ enum combo_events {
   ALT_TOGLE,
   SHIFT_TOGLE,
   GUI_TOGLE,
-};
+}; */
 
 // remember key stuff
-enum remember_key_events {
+/* enum remember_key_events {
   SET,
   GET,
   PREVIOUS_KEY,
   NEXT_KEY,
   NEXT_QUOTATION_KEY,
-};
+}; */
 
 
 // combos stuff
-const uint16_t PROGMEM jk_combo[] =  {LSFT_T(KC_J),		LCTL_T(KC_K),	COMBO_END};
+/* const uint16_t PROGMEM jk_combo[] =  {LSFT_T(KC_J),		LCTL_T(KC_K),	COMBO_END};
 const uint16_t PROGMEM df_combo[] =  {LSFT_T(KC_F), 	LCTL_T(KC_D),	COMBO_END};
 const uint16_t PROGMEM nav_combo[] = {LT(NAV, KC_SPC),	LSFT_T(KC_J),	COMBO_END};
 const uint16_t PROGMEM sym_combo[] = {LSFT_T(KC_F),		OSL(SYM),		COMBO_END};
@@ -90,15 +90,15 @@ combo_t key_combos[] = {
   [GUI_TOGLE] = COMBO(gui_combo, OSM(MOD_LGUI)),
 
 };
-
+ */
 // --------------------------------------------------------------------------------
 // Leadr key stuff
 
 
-void leader_start_user(void) {
+//void leader_start_user(void) {
     // Do something when the leader key is pressed
-}
-
+//}
+/* 
 void leader_end_user(void) {
     if (leader_sequence_one_key(KC_X)) {
 	    register_code(KC_LCTL);
@@ -114,13 +114,13 @@ void leader_end_user(void) {
     } else if (leader_sequence_two_keys(KC_X, KC_X)) {
         SEND_STRING(SS_LCTL(SS_LSFT("t")));
 	}
-/*---------------------------------------------------------------*/		
+ *//*---------------------------------------------------------------*/		
 
 
 /*---------------------------------------------------------------*/
-}
+//}
 
-
+/* 
 uint16_t remember_key(	uint8_t  type, 		// type of remembering --> PREVIOUS_KEY, NEXT_KEY, NEXT_QUOTATION_KEY"
 						uint8_t  action,	// what to do --> GET/SET keyvalue
 						uint16_t keycode) {	// keycode to SET. NULL when GET is registerd
@@ -148,17 +148,18 @@ uint16_t remember_key(	uint8_t  type, 		// type of remembering --> PREVIOUS_KEY,
 	
 	return returnKey;
 }
-
+ */
 // --------------------------------------------------------------------------------
+/* 
 // Macro stuff
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	
-/* 	if ((holding_oneshot_layer) && (keycode != MY_ONESHOT) &&labs (!record->event.pressed))
-	{
-		clear_oneshot_layer_state(ONESHOT_PRESSED);
-		holding_oneshot_layer = false;
-	}
-*/	
+ 	// if ((holding_oneshot_layer) && (keycode != MY_ONESHOT) &&labs (!record->event.pressed))
+	// {
+		// clear_oneshot_layer_state(ONESHOT_PRESSED);
+		// holding_oneshot_layer = false;
+	// }
+	
  	if (record->event.pressed && (keycode != MY_PREV))
 	{
 		remember_key(PREVIOUS_KEY, SET, keycode);
@@ -367,8 +368,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 };
-
-void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+ */
+ 
+/*  
+ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
     case MY_GUI_NUM:
 	// This is a oneshotlayer and oneshot modifier at the same time
@@ -390,3 +393,4 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
 };
+ */
