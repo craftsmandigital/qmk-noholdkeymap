@@ -33,20 +33,65 @@
 
 // --------------------------------------------------------------------------------
 // combos stuff
-/* enum combo_events {
-  JK_ESC,
-  DF_TAB,
+ enum combo_events {
+/*
   NAV_TOGLE,
   SYM_TOGLE,
   NUM_TOGLE,
   MOUSE_TOGLE,
   GUI_NUM,
+*/
+  FR_CTRL,
+  KI_ALT,
+  JU_SHIFT,
+  DE_GUI,
+  
+  UI_ESC,
+  RE_TAB,
+};
 
-  CTRL_TOGLE,
-  ALT_TOGLE,
-  SHIFT_TOGLE,
-  GUI_TOGLE,
-}; */
+
+// combos stuff
+/*
+const uint16_t PROGMEM nav_combo[] = {LT(NAV, KC_SPC),	LSFT_T(KC_J),	COMBO_END};
+const uint16_t PROGMEM sym_combo[] = {LSFT_T(KC_F),		OSL(SYM),		COMBO_END};
+const uint16_t PROGMEM num_combo[] = {LSFT_T(KC_F),		LT(NUM, KC_BSPC), COMBO_END};
+const uint16_t PROGMEM mouse_combo[] = {LT(MOUSE, KC_DOT),LSFT_T(KC_J), COMBO_END};
+const uint16_t PROGMEM gui_num_combo[] = {LCTL_T(KC_K), LALT_T(KC_L), COMBO_END};
+*/
+const uint16_t PROGMEM ctrl_combo[] = {KC_F,	KC_R, COMBO_END};
+const uint16_t PROGMEM shift_combo[] = {KC_J,	KC_U, COMBO_END};
+const uint16_t PROGMEM alt_combo[] = {KC_K,		KC_I, COMBO_END};
+const uint16_t PROGMEM gui_combo[] = {KC_D, 	KC_E, COMBO_END};
+
+const uint16_t PROGMEM ui_combo[] =  {LSFT_T(KC_U),		LCTL_T(KC_I),	COMBO_END};
+const uint16_t PROGMEM re_combo[] =  {LSFT_T(KC_R), 	LCTL_T(KC_E),	COMBO_END};
+
+
+
+combo_t key_combos[] = {
+/*
+
+  [NAV_TOGLE] = COMBO(nav_combo, TG(NAV)),
+  [SYM_TOGLE] = COMBO(sym_combo, TG(SYM)),
+  [NUM_TOGLE] = COMBO(num_combo, TG(NUM)),
+  [GUI_NUM] = COMBO(gui_num_combo, MY_GUI_NUM),
+  [MOUSE_TOGLE] = COMBO(mouse_combo, TG(MOUSE)),
+  // [QW_SFT] = COMBO(qw_combo, KC_LSFT)
+  // [SD_LAYER] = COMBO(layer_combo, MO(_LAYER)),
+*/
+  [JU_SHIFT] = COMBO(shift_combo, OSM(MOD_LSFT)),
+  [FR_CTRL] = COMBO(ctrl_combo, OSM(MOD_LCTL)),
+  [KI_ALT] = COMBO(alt_combo, OSM(MOD_LALT)),
+  [DE_GUI] = COMBO(gui_combo, OSM(MOD_LGUI)),
+
+  [UI_ESC] = COMBO(ui_combo, KC_ESC),
+  [RE_TAB] = COMBO(re_combo, KC_TAB),
+};
+
+// --------------------------------------------------------------------------------
+
+
 
 // remember key stuff
 /* enum remember_key_events {
@@ -58,39 +103,10 @@
 }; */
 
 
-// combos stuff
-/* const uint16_t PROGMEM jk_combo[] =  {LSFT_T(KC_J),		LCTL_T(KC_K),	COMBO_END};
-const uint16_t PROGMEM df_combo[] =  {LSFT_T(KC_F), 	LCTL_T(KC_D),	COMBO_END};
-const uint16_t PROGMEM nav_combo[] = {LT(NAV, KC_SPC),	LSFT_T(KC_J),	COMBO_END};
-const uint16_t PROGMEM sym_combo[] = {LSFT_T(KC_F),		OSL(SYM),		COMBO_END};
-const uint16_t PROGMEM num_combo[] = {LSFT_T(KC_F),		LT(NUM, KC_BSPC), COMBO_END};
-const uint16_t PROGMEM mouse_combo[] = {LT(MOUSE, KC_DOT),LSFT_T(KC_J), COMBO_END};
-const uint16_t PROGMEM gui_num_combo[] = {LCTL_T(KC_K), LALT_T(KC_L), COMBO_END};
-
-const uint16_t PROGMEM ctrl_combo[] = {KC_W,	KC_E, COMBO_END};
-const uint16_t PROGMEM shift_combo[] = {KC_E,	KC_R, COMBO_END};
-const uint16_t PROGMEM alt_combo[] = {KC_Q,		KC_W, COMBO_END};
-const uint16_t PROGMEM gui_combo[] = {KC_W, 	KC_R, COMBO_END};
 
 
-combo_t key_combos[] = {
-  [JK_ESC] = COMBO(jk_combo, KC_ESC),
-  [DF_TAB] = COMBO(df_combo, KC_TAB),
-  [NAV_TOGLE] = COMBO(nav_combo, TG(NAV)),
-  [SYM_TOGLE] = COMBO(sym_combo, TG(SYM)),
-  [NUM_TOGLE] = COMBO(num_combo, TG(NUM)),
-  [GUI_NUM] = COMBO(gui_num_combo, MY_GUI_NUM),
-  [MOUSE_TOGLE] = COMBO(mouse_combo, TG(MOUSE)),
-  // [QW_SFT] = COMBO(qw_combo, KC_LSFT)
-  // [SD_LAYER] = COMBO(layer_combo, MO(_LAYER)),
 
-  [SHIFT_TOGLE] = COMBO(shift_combo, OSM(MOD_LSFT)),
-  [CTRL_TOGLE] = COMBO(ctrl_combo, OSM(MOD_LCTL)),
-  [ALT_TOGLE] = COMBO(alt_combo, OSM(MOD_LALT)),
-  [GUI_TOGLE] = COMBO(gui_combo, OSM(MOD_LGUI)),
 
-};
- */
 // --------------------------------------------------------------------------------
 // Leadr key stuff
 
