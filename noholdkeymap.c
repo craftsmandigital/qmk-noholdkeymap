@@ -64,8 +64,8 @@ const uint16_t PROGMEM shift_combo[] = {KC_J,	KC_U, COMBO_END};
 const uint16_t PROGMEM alt_combo[] = {KC_K,		KC_I, COMBO_END};
 const uint16_t PROGMEM gui_combo[] = {KC_D, 	KC_E, COMBO_END};
 
-const uint16_t PROGMEM ui_combo[] =  {LSFT_T(KC_U),		LCTL_T(KC_I),	COMBO_END};
-const uint16_t PROGMEM re_combo[] =  {LSFT_T(KC_R), 	LCTL_T(KC_E),	COMBO_END};
+const uint16_t PROGMEM ui_combo[] =  {KC_U,		KC_I,	COMBO_END};
+const uint16_t PROGMEM re_combo[] =  {KC_R, 	KC_E,	COMBO_END};
 
 
 
@@ -111,30 +111,36 @@ combo_t key_combos[] = {
 // Leadr key stuff
 
 
-//void leader_start_user(void) {
+void leader_start_user(void) {
     // Do something when the leader key is pressed
-//}
-/* 
+}
+
 void leader_end_user(void) {
-    if (leader_sequence_one_key(KC_X)) {
-	    register_code(KC_LCTL);
-        register_code(KC_F4);
-        unregister_code(KC_F4);
-        unregister_code(KC_LCTL);
-        // SEND_STRING(SS_DOWN(KC_LCTL)SS_TAP(KC_F4)SS_UP(KC_LCTL));
-    } else if (leader_sequence_one_key(KC_Q)) {
-	    register_code(KC_LALT);
-        register_code(KC_F4);
-        unregister_code(KC_F4);
-        unregister_code(KC_LALT);
-    } else if (leader_sequence_two_keys(KC_X, KC_X)) {
-        SEND_STRING(SS_LCTL(SS_LSFT("t")));
-	}
- *//*---------------------------------------------------------------*/		
+    if (leader_sequence_one_key(KC_F)) {
+        // Leader, f => Types the below string
+        //SEND_STRING("QMK is awesome.");
+		//layer_on(FUN);
+		set_oneshot_layer(FUN, ONESHOT_START);
+		
+		
+		
+		//tap_code16(OSL(FUN));
+    } else if (leader_sequence_two_keys(KC_D, KC_D)) {
+        // Leader, d, d => Ctrl+A, Ctrl+C
+        SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
+    } else if (leader_sequence_three_keys(KC_D, KC_D, KC_S)) {
+        // Leader, d, d, s => Types the below string
+        SEND_STRING("https://start.duckduckgo.com\n");
+    } else if (leader_sequence_two_keys(KC_A, KC_S)) {
+        // Leader, a, s => GUI+S
+        tap_code16(LGUI(KC_S));
+    }
+
+//---------------------------------------------------------------		
 
 
-/*---------------------------------------------------------------*/
-//}
+//---------------------------------------------------------------
+}
 
 /* 
 uint16_t remember_key(	uint8_t  type, 		// type of remembering --> PREVIOUS_KEY, NEXT_KEY, NEXT_QUOTATION_KEY"
@@ -166,28 +172,59 @@ uint16_t remember_key(	uint8_t  type, 		// type of remembering --> PREVIOUS_KEY,
 }
  */
 // --------------------------------------------------------------------------------
-/* 
+
+
+/*
+void organize_layer(uint8_t	layerToSet		// BASE, SYM, NAV, NUM, ...
+					,bool	oneShot) {// TRUE if oneShot behaviour else FALSE when PERSISTENT layer
+	static uint8_t currentLayer = BASE;
+	currentLayer = layerToSet;
+}
+
+void organize_layer_connect(uint8_t	layerToSet		// BASE, SYM, NAV, NUM, ...
+					,bool	oneShot) {// TRUE if oneShot behaviour else FALSE when PERSISTENT layer
+
+}
+
+void organize_layer_check(uint8_t	layerToSet		// BASE, SYM, NAV, NUM, ...
+					,bool	oneShot) {// TRUE if oneShot behaviour else FALSE when PERSISTENT layer
+
+}
+
+void organize_layer_disconnect(uint8_t	layerToSet		// BASE, SYM, NAV, NUM, ...
+					,bool	oneShot) {// TRUE if oneShot behaviour else FALSE when PERSISTENT layer
+
+}
+*/
+
+// --------------------------------------------------------------------------------
+
+ 
 // Macro stuff
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	
+	// if (IS_LAYER_ON(FUN) && !record->event.pressed){
+		// clear_oneshot_layer_state(ONESHOT_PRESSED);
+	// }	
  	// if ((holding_oneshot_layer) && (keycode != MY_ONESHOT) &&labs (!record->event.pressed))
 	// {
 		// clear_oneshot_layer_state(ONESHOT_PRESSED);
 		// holding_oneshot_layer = false;
 	// }
-	
+/*	
  	if (record->event.pressed && (keycode != MY_PREV))
 	{
 		remember_key(PREVIOUS_KEY, SET, keycode);
 	}
 
     switch (keycode) {
+
     case MY_PREV:
         if (record->event.pressed) {
             // when key " is pressed
             tap_code(remember_key(PREVIOUS_KEY, GET, KC_NO));
         }
         break;
+
     case KC_SPC:
         if (record->event.pressed) {
             // when layer is on go back to caling layer and pres space
@@ -382,13 +419,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		break;
 
     }
+	*/
     return true;
 };
- */
  
-/*  
+/*
  void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+
 	switch (keycode) {
+
     case MY_GUI_NUM:
 	// This is a oneshotlayer and oneshot modifier at the same time
 	// SYM layer and GUI modifier at once.
@@ -409,4 +449,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
 };
- */
+*/
