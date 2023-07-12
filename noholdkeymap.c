@@ -45,7 +45,7 @@
   KI_ALT,
   JU_SHIFT,
   DE_GUI,
-  
+
   UI_ESC,
   RE_TAB,
 };
@@ -121,13 +121,86 @@ void leader_end_user(void) {
         //SEND_STRING("QMK is awesome.");
 		//layer_on(FUN);
 		set_oneshot_layer(FUN, ONESHOT_START);
-		
-		
-		
-		//tap_code16(OSL(FUN));
+
+    } else if (leader_sequence_one_key(KC_D)) {
+        SEND_STRING(UU_CUT);
+
+
+
+    /* Word stuff */
+    /* Moving */
+    } else if (leader_sequence_one_key(KC_B)) {
+        SEND_STRING(UU_WORDL);
+    } else if (leader_sequence_one_key(KC_W)) {
+        SEND_STRING(UU_WORDR);
+    /* Selecting */
+    } else if (leader_sequence_two_keys(KC_V, KC_B)) {
+        SEND_STRING(UU_SEL_WORDL);
+    } else if (leader_sequence_two_keys(KC_V, KC_W)) {
+        SEND_STRING(UU_SEL_WORDR);
+    /* Deleting */
+    } else if (leader_sequence_two_keys(KC_D, KC_B)) {
+        SEND_STRING(UU_SEL_WORDL UU_CUT);
+    } else if (leader_sequence_two_keys(KC_D, KC_W)) {
+        SEND_STRING(UU_SEL_WORDR UU_CUT);
+    /* Copying */
+    } else if (leader_sequence_two_keys(KC_Y, KC_B)) {
+        SEND_STRING(UU_SEL_WORDL UU_CPY);
+    } else if (leader_sequence_two_keys(KC_Y, KC_W)) {
+        SEND_STRING(UU_SEL_WORDR UU_CPY);
+
+
+
+    /* Line stuff */
+    /* Selecting */
+    } else if (leader_sequence_two_keys(KC_V, KC_V)) {
+        SEND_STRING(UU_SEL_LINE);
+    /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_D)) {
-        // Leader, d, d => Ctrl+A, Ctrl+C
-        SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
+        SEND_STRING(UU_SEL_LINE UU_CUT);
+    /* Copying */
+    } else if (leader_sequence_two_keys(KC_Y, KC_Y)) {
+        SEND_STRING(UU_SEL_LINE UU_CPY);
+
+
+
+    /* Paragraph/sentence stuff */
+    /* Moving */
+    } else if (leader_sequence_two_keys(KC_G,KC_J)) {
+        SEND_STRING(UU_GRAPH_DN);
+    } else if (leader_sequence_two_keys(KC_G, KC_K)) {
+        SEND_STRING(UU_GRAPH_UP);
+    /* Selecting */
+    } else if (leader_sequence_two_keys(KC_V, KC_P)) {
+        SEND_STRING(UU_SEL_GRAPH_DN);
+    /* Deleting */
+    } else if (leader_sequence_two_keys(KC_D, KC_P)) {
+        SEND_STRING(UU_SEL_GRAPH_DN UU_CUT);
+    /* Copying */
+    } else if (leader_sequence_two_keys(KC_Y, KC_P)) {
+        SEND_STRING(UU_SEL_GRAPH_DN UU_CPY);
+
+
+
+    /* All stuff */
+    /* Selecting */
+    } else if (leader_sequence_two_keys(KC_V, KC_A)) {
+        SEND_STRING(UU_SEL_ALL);
+    /* Deleting */
+    } else if (leader_sequence_two_keys(KC_D, KC_A)) {
+        SEND_STRING(UU_SEL_ALL UU_CUT);
+    /* Copying */
+    } else if (leader_sequence_two_keys(KC_Y, KC_A)) {
+        SEND_STRING(UU_SEL_ALL UU_CPY);
+
+
+
+
+    } else if (leader_sequence_two_keys(KC_D, KC_W)) {
+        SEND_STRING(UU_SEL_WORDR UU_CPY);
+
+    } else if (leader_sequence_two_keys(KC_D, KC_D)) {
+        SEND_STRING(UU_SEL_LINE UU_CUT);
     } else if (leader_sequence_three_keys(KC_D, KC_D, KC_S)) {
         // Leader, d, d, s => Types the below string
         SEND_STRING("https://start.duckduckgo.com\n");
@@ -136,20 +209,20 @@ void leader_end_user(void) {
         tap_code16(LGUI(KC_S));
     }
 
-//---------------------------------------------------------------		
+//---------------------------------------------------------------
 
 
 //---------------------------------------------------------------
 }
 
-/* 
+/*
 uint16_t remember_key(	uint8_t  type, 		// type of remembering --> PREVIOUS_KEY, NEXT_KEY, NEXT_QUOTATION_KEY"
 						uint8_t  action,	// what to do --> GET/SET keyvalue
 						uint16_t keycode) {	// keycode to SET. NULL when GET is registerd
 // Function returns a rememberd keycode if GET action is set.
 // If SET action is present then it stores the keycode and returns NULL.
 	static uint16_t previousKey = KC_NO, nextKey = KC_NO, nextQuotKey = KC_NO, returnKey = KC_NO;
-	
+
 	if (action == GET){
 		if (type == PREVIOUS_KEY){
 			returnKey = previousKey;
@@ -165,9 +238,9 @@ uint16_t remember_key(	uint8_t  type, 		// type of remembering --> PREVIOUS_KEY,
 			nextKey = keycode;
 		} else if (type == NEXT_QUOTATION_KEY){
 			nextQuotKey = keycode;
-		}	
+		}
 	}
-	
+
 	return returnKey;
 }
  */
@@ -199,18 +272,18 @@ void organize_layer_disconnect(uint8_t	layerToSet		// BASE, SYM, NAV, NUM, ...
 
 // --------------------------------------------------------------------------------
 
- 
+
 // Macro stuff
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	// if (IS_LAYER_ON(FUN) && !record->event.pressed){
 		// clear_oneshot_layer_state(ONESHOT_PRESSED);
-	// }	
+	// }
  	// if ((holding_oneshot_layer) && (keycode != MY_ONESHOT) &&labs (!record->event.pressed))
 	// {
 		// clear_oneshot_layer_state(ONESHOT_PRESSED);
 		// holding_oneshot_layer = false;
 	// }
-/*	
+/*
  	if (record->event.pressed && (keycode != MY_PREV))
 	{
 		remember_key(PREVIOUS_KEY, SET, keycode);
@@ -232,7 +305,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				layer_invert(NUM);
 				tap_code(KC_SPC);
 				return false;
-			}  
+			}
         }
         break;
 	case OSL(NUM):
@@ -240,7 +313,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // when modifier keys is held then prosess key as usual.
 			// When no mods then togle SYM layer permanent
 			const uint8_t mods = get_mods() | get_oneshot_mods();
-			if (!mods){ 
+			if (!mods){
               layer_invert(NUM);
 			  return false;
 			}
@@ -367,7 +440,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				register_code(KC_LCTL);
 				tap_code(KC_END);
 				unregister_code(KC_LCTL);
-				
+
 			}
 		}
         break;
@@ -381,7 +454,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				register_code(KC_LCTL);
 				tap_code(KC_HOME);
 				unregister_code(KC_LCTL);
-				
+
 			}
 		}
 		break;
@@ -408,10 +481,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		// This was extremely difficult to program, because of the nature of GUI modifier
 		// It is also triggered on tap. luckyly the solution was quite easy. The solution was found on website under:
 		// https://github.com/qmk/qmk_firmware/blob/master/docs/mod_tap.md#changing-tap-function.
-		// The moust obious solution was something like the website under. 
+		// The moust obious solution was something like the website under.
 		// But doestnt work because of the nature of the GUI modifier
 		// https://thomasbaart.nl/2018/12/09/qmk-basics-tap-and-hold-actions/#a-workaround-for-mod-tap
-		
+
 		if (record->tap.count && record->event.pressed) {
 			SEND_STRING("-&o"); // Send KC_DQUO on tap
 			return false;        // Return false to ignore further processing of key
@@ -422,7 +495,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	*/
     return true;
 };
- 
+
 /*
  void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -432,14 +505,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MY_GUI_NUM:
 	// This is a oneshotlayer and oneshot modifier at the same time
 	// SYM layer and GUI modifier at once.
-	// This makes it easy to switch apps in the taskbar in windows 10. 
+	// This makes it easy to switch apps in the taskbar in windows 10.
 	// The state before next key pressed is num layer and gui modifier.
 	// When user press a nuber key, then it triggers to open or switching to that app in taskbar
         if (record->event.pressed) {
             // layer_on(NUM);
             set_oneshot_layer(NUM, ONESHOT_START);
             clear_oneshot_layer_state(ONESHOT_PRESSED);
-			
+
 			set_oneshot_mods(MOD_RGUI);
         } else {
 			// clear_oneshot_layer_state(ONESHOT_PRESSED);

@@ -6,7 +6,7 @@
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ 
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
@@ -26,3 +26,20 @@
 #define U_CPY C(KC_C)
 #define U_CUT C(KC_X)
 #define U_UND C(KC_Z)
+
+#define UU_CUT SS_LCTL("x")
+#define UU_PST SS_LCTL("v")
+#define UU_CPY SS_LCTL("c")
+
+#define UU_WORDL SS_LCTL(SS_TAP(X_LEFT))
+#define UU_WORDR SS_LCTL(SS_TAP(X_RIGHT))
+
+#define UU_GRAPH_UP SS_LCTL(SS_TAP(X_UP))
+#define UU_GRAPH_DN SS_LCTL(SS_TAP(X_DOWN))
+
+#define UU_SEL_ALL SS_LCTL("a")
+#define UU_SEL_LINE SS_TAP(X_HOME) SS_LSFT(SS_TAP(X_DOWN))
+#define UU_SEL_WORDR SS_LSFT(UU_WORDR)
+#define UU_SEL_WORDL SS_LSFT(UU_WORDL)
+#define UU_SEL_GRAPH_UP SS_LSFT(UU_GRAPH_UP)
+#define UU_SEL_GRAPH_DN SS_LSFT(UU_GRAPH_DN)
