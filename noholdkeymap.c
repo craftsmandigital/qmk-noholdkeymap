@@ -154,8 +154,15 @@ void leader_end_user(void) {
     /* Line stuff */
     /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_V)) {
-        SEND_STRING(UU_SEL_LINE);
-    /* Deleting */
+        /* SEND_STRING(UU_SEL_LINE); */
+        set_oneshot_mods(MOD_BIT(KC_RSFT));
+        /* uint16_t keycodes[] = {KC_HOME, S(KC_DOWN), U_CUT, 0};  // Declaration of an array with keycodes and sentinel */
+        /* uint16_t keycodes[] = {OSM(MOD_BIT(KC_RSFT)), 0};  // Declaration of an array with keycodes and sentinel */
+        /* // Access and print the array elements until the sentinel is encountered */
+        /* for (int i = 0; keycodes[i] != 0; i++) { */
+        /*     tap_code16(keycodes[i]); */
+        /* } */
+        /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_D)) {
         SEND_STRING(UU_SEL_LINE UU_CUT);
     /* Copying */
