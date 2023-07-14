@@ -111,6 +111,16 @@ combo_t key_combos[] = {
 // Leadr key stuff
 
 
+void execute_key_sequence(uint16_t *keycodes) {
+
+    // Access and print the array elements until the sentinel(0) is encountered
+    for (int i = 0; keycodes[i] != 0; i++) {
+       tap_code16(keycodes[i]);
+    }
+}
+
+
+
 void leader_start_user(void) {
     // Do something when the leader key is pressed
 }
@@ -123,39 +133,49 @@ void leader_end_user(void) {
 		set_oneshot_layer(FUN, ONESHOT_START);
 
     } else if (leader_sequence_one_key(KC_D)) {
-        SEND_STRING(UU_CUT);
+        /* SEND_STRING(U_CUT); */
 
 
 
     /* Word stuff */
     /* Moving */
     } else if (leader_sequence_one_key(KC_B)) {
-        SEND_STRING(UU_WORDL);
+        uint16_t keycodes[] = {UU_WORDL, 0};
+        execute_key_sequence(keycodes);
     } else if (leader_sequence_one_key(KC_W)) {
-        SEND_STRING(UU_WORDR);
+        uint16_t keycodes[] = {UU_WORDR, 0};
+        execute_key_sequence(keycodes);
     /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_B)) {
-        SEND_STRING(UU_SEL_WORDL);
+        uint16_t keycodes[] = {UU_SEL_WORDL, 0};
+        execute_key_sequence(keycodes);
     } else if (leader_sequence_two_keys(KC_V, KC_W)) {
-        SEND_STRING(UU_SEL_WORDR);
+        uint16_t keycodes[] = {UU_SEL_WORDR, 0};
+        execute_key_sequence(keycodes);
     /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_B)) {
-        SEND_STRING(UU_SEL_WORDL UU_CUT);
+        uint16_t keycodes[] = {UU_SEL_WORDL, U_CUT, 0};
+        execute_key_sequence(keycodes);
     } else if (leader_sequence_two_keys(KC_D, KC_W)) {
-        SEND_STRING(UU_SEL_WORDR UU_CUT);
+        uint16_t keycodes[] = {UU_SEL_WORDR, U_CUT, 0};
+        execute_key_sequence(keycodes);
     /* Copying */
     } else if (leader_sequence_two_keys(KC_Y, KC_B)) {
-        SEND_STRING(UU_SEL_WORDL UU_CPY);
+        uint16_t keycodes[] = {UU_SEL_WORDL, U_CPY, 0};
+        execute_key_sequence(keycodes);
     } else if (leader_sequence_two_keys(KC_Y, KC_W)) {
-        SEND_STRING(UU_SEL_WORDR UU_CPY);
-
+        uint16_t keycodes[] = {UU_SEL_WORDR, U_CPY, 0};
+        execute_key_sequence(keycodes);
 
 
     /* Line stuff */
     /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_V)) {
         /* SEND_STRING(UU_SEL_LINE); */
-        set_oneshot_mods(MOD_BIT(KC_RSFT));
+        /* uint16_t keycodes[] = {KC_HOME, S(KC_DOWN), U_CUT, 0}; */
+        uint16_t keycodes[] = {UU_SEL_LINE, 0};
+        execute_key_sequence(keycodes);
+        /* set_oneshot_mods(MOD_BIT(KC_RSFT)); */
         /* uint16_t keycodes[] = {KC_HOME, S(KC_DOWN), U_CUT, 0};  // Declaration of an array with keycodes and sentinel */
         /* uint16_t keycodes[] = {OSM(MOD_BIT(KC_RSFT)), 0};  // Declaration of an array with keycodes and sentinel */
         /* // Access and print the array elements until the sentinel is encountered */
@@ -164,50 +184,56 @@ void leader_end_user(void) {
         /* } */
         /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_D)) {
-        SEND_STRING(UU_SEL_LINE UU_CUT);
+        uint16_t keycodes[] = {UU_SEL_LINE, U_CUT, 0};
+        execute_key_sequence(keycodes);
     /* Copying */
     } else if (leader_sequence_two_keys(KC_Y, KC_Y)) {
-        SEND_STRING(UU_SEL_LINE UU_CPY);
-
+        uint16_t keycodes[] = {UU_SEL_LINE, U_CPY, 0};
+        execute_key_sequence(keycodes);
 
 
     /* Paragraph/sentence stuff */
     /* Moving */
     } else if (leader_sequence_two_keys(KC_G,KC_J)) {
-        SEND_STRING(UU_GRAPH_DN);
+        uint16_t keycodes[] = {UU_GRAPH_DN, 0};
+        execute_key_sequence(keycodes);
     } else if (leader_sequence_two_keys(KC_G, KC_K)) {
-        SEND_STRING(UU_GRAPH_UP);
+        uint16_t keycodes[] = {UU_GRAPH_UP, 0};
+        execute_key_sequence(keycodes);
     /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_P)) {
-        SEND_STRING(UU_SEL_GRAPH_DN);
+        uint16_t keycodes[] = {UU_SEL_GRAPH_DN, 0};
+        execute_key_sequence(keycodes);
     /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_P)) {
-        SEND_STRING(UU_SEL_GRAPH_DN UU_CUT);
+        uint16_t keycodes[] = {UU_SEL_GRAPH_DN, U_CUT, 0};
+        execute_key_sequence(keycodes);
     /* Copying */
     } else if (leader_sequence_two_keys(KC_Y, KC_P)) {
-        SEND_STRING(UU_SEL_GRAPH_DN UU_CPY);
+        /* SEND_STRING(UU_SEL_GRAPH_DN UU_CPY); */
+        uint16_t keycodes[] = {UU_SEL_GRAPH_DN, U_CPY, 0};
+        execute_key_sequence(keycodes);
 
 
 
     /* All stuff */
     /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_A)) {
-        SEND_STRING(UU_SEL_ALL);
+        uint16_t keycodes[] = {UU_SEL_ALL, 0};
+        execute_key_sequence(keycodes);
     /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_A)) {
-        SEND_STRING(UU_SEL_ALL UU_CUT);
+        uint16_t keycodes[] = {UU_SEL_ALL, U_CUT, 0};
+        execute_key_sequence(keycodes);
     /* Copying */
     } else if (leader_sequence_two_keys(KC_Y, KC_A)) {
-        SEND_STRING(UU_SEL_ALL UU_CPY);
+        /* SEND_STRING(UU_SEL_ALL UU_CPY); */
+        uint16_t keycodes[] = {UU_SEL_ALL, U_CPY, 0};
+        execute_key_sequence(keycodes);
 
 
 
 
-    } else if (leader_sequence_two_keys(KC_D, KC_W)) {
-        SEND_STRING(UU_SEL_WORDR UU_CPY);
-
-    } else if (leader_sequence_two_keys(KC_D, KC_D)) {
-        SEND_STRING(UU_SEL_LINE UU_CUT);
     } else if (leader_sequence_three_keys(KC_D, KC_D, KC_S)) {
         // Leader, d, d, s => Types the below string
         SEND_STRING("https://start.duckduckgo.com\n");
