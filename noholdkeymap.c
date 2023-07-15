@@ -22,6 +22,7 @@
 #include "sendstring_us_international.h"
 
 #include "keyboard-layout.h" // Layout has its own file
+#include "features/magic-keys.h"
 
 
 
@@ -111,13 +112,13 @@ combo_t key_combos[] = {
 // Leadr key stuff
 
 
-void execute_key_sequence(uint16_t *keycodes) {
-
-    // Access and print the array elements until the sentinel(0) is encountered
-    for (int i = 0; keycodes[i] != 0; i++) {
-       tap_code16(keycodes[i]);
-    }
-}
+/* void execute_key_sequence(uint16_t *keycodes) { */
+/**/
+/*     // Access and print the array elements until the sentinel(0) is encountered */
+/*     for (int i = 0; keycodes[i] != 0; i++) { */
+/*        tap_code16(keycodes[i]); */
+/*     } */
+/* } */
 
 
 

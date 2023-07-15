@@ -40,5 +40,5 @@ RGB_MATRIX_SUPPORTED = no
 
 INTROSPECTION_KEYMAP_C = noholdkeymap.c # keymaps
 
-
+SRC += features/magic-keys.c
 include users/noholdkeymap/post_rules.mk
