@@ -27,7 +27,11 @@ typedef struct {
 magic_key_struct_t magic_keys[MAGIC_KEYS_COUNT];
 
 
-void execute_key_sequence(uint16_t *keycodes) {
+
+void magic_execute_key(
+        void (*function_pointer)(uint16_t keycodes_to_process[]),
+        uint16_t *keycodes,
+        magic_key_t store_as_keytype) {
 
     // Access and print the array elements until the sentinel(0) is encountere
     for (int i = 0; keycodes[i] != 0; i++) {
@@ -36,10 +40,18 @@ void execute_key_sequence(uint16_t *keycodes) {
 }
 
 
-
 void magic_tap_key(magic_key_t *keytype) {
 
 }
+
+
+
+void magic_set(magic_key_t *keytype,
+               void (*function_pointer)(uint16_t keycodes_to_process[]),
+               uint16_t keycodes[]) {
+
+}
+
 
 
 

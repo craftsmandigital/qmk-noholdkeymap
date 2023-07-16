@@ -27,12 +27,16 @@ typedef enum {
     NEXT_KEY_FRIEND,
     QUOTATION_END_KEY,
     MAGIC_KEYS_COUNT,   // Has to be located after all the magic key types
-    NO_KEY,             // Must be after MAGIC_KEYS_COUNT. Parameter to execute_key_sequence() if no register of key is preferred
+    NO_KEY,             // Must be after MAGIC_KEYS_COUNT. Parameter to magic_execute_key() if no register of key is preferred
 } magic_key_t;
 
 
+void magic_execute_key(
+        void (*function_pointer)(uint16_t keycodes_to_process[]),
+        uint16_t *keycodes,
+        magic_key_t store_as_keytype);
 
-void execute_key_sequence(uint16_t *keycodes);
+
 void magic_tap_key(magic_key_t *keytype);
 
 void magic_set(magic_key_t *keytype,
