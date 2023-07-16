@@ -19,6 +19,13 @@
 #include "magic-keys.h"
 
 
+typedef struct {
+    void (*function_pointer)(uint16_t keycodes_to_process[]);
+    uint16_t keycodes[];
+} magic_key_struct_t;
+
+magic_key_struct_t magic_keys[MAGIC_KEYS_COUNT];
+
 
 void execute_key_sequence(uint16_t *keycodes) {
 
@@ -27,3 +34,12 @@ void execute_key_sequence(uint16_t *keycodes) {
        tap_code16(keycodes[i]);
     }
 }
+
+
+
+void magic_tap_key(magic_key_t *keytype) {
+
+}
+
+
+

@@ -137,7 +137,6 @@ void leader_end_user(void) {
         /* SEND_STRING(U_CUT); */
 
 
-
     /* Word stuff */
     /* Moving */
     } else if (leader_sequence_one_key(KC_B)) {
