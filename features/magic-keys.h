@@ -23,8 +23,7 @@
 
 
 #ifdef MAGIC_KEYS_DEFAULT_CONFIG
-
-    void test(void);
+    #include "magic-keys-default.h"
 #endif // Default config
 
 
