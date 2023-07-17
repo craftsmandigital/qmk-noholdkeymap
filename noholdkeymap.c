@@ -166,6 +166,7 @@ void leader_end_user(void) {
     } else if (leader_sequence_one_key(KC_B)) {
         uint16_t keycodes[] = {UU_WORDL, 0};
         magic_execute_key(NULL, keycodes, NO_KEY);
+        test();
     } else if (leader_sequence_one_key(KC_W)) {
         uint16_t keycodes[] = {UU_WORDR, 0};
         magic_execute_key(NULL, keycodes, NO_KEY);

@@ -18,6 +18,16 @@
 #pragma once
 
 
+
+#define MAGIC_KEYS_DEFAULT_CONFIG
+
+
+#ifdef MAGIC_KEYS_DEFAULT_CONFIG
+
+    void test(void);
+#endif // Default config
+
+
 #include QMK_KEYBOARD_H
 
 /* #define MAGIC_KEYS_COUNT 3 */

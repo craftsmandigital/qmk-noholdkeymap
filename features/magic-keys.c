@@ -18,6 +18,9 @@
 
 #include "magic-keys.h"
 
+#ifdef MAGIC_KEYS_DEFAULT_CONFIG
+    #include "magic-keys-default.c"
+#endif // Default config
 
 typedef struct {
     void (*function_pointer)(uint16_t keycodes_to_process[]);
