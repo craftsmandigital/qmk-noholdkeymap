@@ -30,26 +30,49 @@ magic_key_struct_t magic_keys[MAGIC_KEYS_COUNT];
 
 void magic_execute_key(
         void (*function_pointer)(uint16_t keycodes_to_process[]),
-        uint16_t *keycodes,
+        uint16_t keycodes[],
         magic_key_t store_as_keytype) {
 
-    // Access and print the array elements until the sentinel(0) is encountere
-    for (int i = 0; keycodes[i] != 0; i++) {
-       tap_code16(keycodes[i]);
+    // Determine what to do based on the inncomming parameters
+    if (function_pointer != NULL) { // run function
+        function_pointer(keycodes);
+    } else if (keycodes != NULL) {  // Tap keycodes
+        // Access and print the array elements until the sentinel(0) is encountere
+        for (int i = 0; keycodes[i] != 0; i++) {
+            tap_code16(keycodes[i]);
+        }
+    }
+
+    // Store the keytype to the internal struct for later use if user
+    // wants to store it.
+    if (store_as_keytype >= NEXT_KEY && store_as_keytype < MAGIC_KEYS_COUNT) {
+        magic_set(store_as_keytype, function_pointer, keycodes);
     }
 }
 
 
-void magic_tap_key(magic_key_t *keytype) {
+void magic_tap_key(magic_key_t keytype) {
+    magic_execute_key(magic_keys[keytype].function_pointer, magic_keys[keytype].keycodes, keytype);
 
 }
 
 
 
-void magic_set(magic_key_t *keytype,
+void magic_set(magic_key_t keytype,
                void (*function_pointer)(uint16_t keycodes_to_process[]),
                uint16_t keycodes[]) {
 
+    // Copying the function to the internal holder, for later use
+    magic_keys[keytype].function_pointer = function_pointer;
+
+    // Copying keycodes to the internal keycodes aray, for later use
+    int i = 0;
+    while (true) {
+        // loop include the last element with the sentinel(0) value
+        magic_keys[keytype].keycodes[i] = keycodes[i];
+        if (keycodes[i] == 0) break;
+        i++;
+    }
 }
 
 

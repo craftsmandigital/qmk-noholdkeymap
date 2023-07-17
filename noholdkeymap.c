@@ -49,6 +49,9 @@
 
   UI_ESC,
   RE_TAB,
+
+  JK_NEXT_KEY,
+  FD_NEXT_KEY_FRIEND,
 };
 
 
@@ -68,7 +71,8 @@ const uint16_t PROGMEM gui_combo[] = {KC_D, 	KC_E, COMBO_END};
 const uint16_t PROGMEM ui_combo[] =  {KC_U,		KC_I,	COMBO_END};
 const uint16_t PROGMEM re_combo[] =  {KC_R, 	KC_E,	COMBO_END};
 
-
+const uint16_t PROGMEM jk_combo[] =  {KC_J,		KC_K,	COMBO_END};
+const uint16_t PROGMEM fd_combo[] =  {KC_F, 	KC_D,	COMBO_END};
 
 combo_t key_combos[] = {
 /*
@@ -88,7 +92,25 @@ combo_t key_combos[] = {
 
   [UI_ESC] = COMBO(ui_combo, KC_ESC),
   [RE_TAB] = COMBO(re_combo, KC_TAB),
+
+  [JK_NEXT_KEY] =           COMBO_ACTION(jk_combo),
+  [FD_NEXT_KEY_FRIEND] =    COMBO_ACTION(fd_combo),
 };
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case JK_NEXT_KEY:
+      if (pressed) {
+        magic_tap_key(NEXT_KEY);
+      }
+      break;
+    case FD_NEXT_KEY_FRIEND:
+      if (pressed) {
+        magic_tap_key(NEXT_KEY_FRIEND);
+      }
+      break;
+  }
+}
 
 // --------------------------------------------------------------------------------
 
@@ -120,7 +142,9 @@ combo_t key_combos[] = {
 /*     } */
 /* } */
 
-
+/* void test_function(uint16_t keycodes_to_process[]) { */
+/*     SEND_STRING("test"); */
+/* } */
 
 void leader_start_user(void) {
     // Do something when the leader key is pressed
@@ -135,7 +159,7 @@ void leader_end_user(void) {
 
     } else if (leader_sequence_one_key(KC_D)) {
         /* SEND_STRING(U_CUT); */
-
+        /* magic_execute_key(test_function, NULL, NO_KEY); */
 
     /* Word stuff */
     /* Moving */
@@ -174,7 +198,7 @@ void leader_end_user(void) {
         /* SEND_STRING(UU_SEL_LINE); */
         /* uint16_t keycodes[] = {KC_HOME, S(KC_DOWN), U_CUT, 0}; */
         uint16_t keycodes[] = {UU_SEL_LINE, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        magic_execute_key(NULL, keycodes, NEXT_KEY_FRIEND);
         /* set_oneshot_mods(MOD_BIT(KC_RSFT)); */
         /* uint16_t keycodes[] = {KC_HOME, S(KC_DOWN), U_CUT, 0};  // Declaration of an array with keycodes and sentinel */
         /* uint16_t keycodes[] = {OSM(MOD_BIT(KC_RSFT)), 0};  // Declaration of an array with keycodes and sentinel */
@@ -185,7 +209,7 @@ void leader_end_user(void) {
         /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_D)) {
         uint16_t keycodes[] = {UU_SEL_LINE, U_CUT, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        magic_execute_key(NULL, keycodes, NEXT_KEY_FRIEND);
     /* Copying */
     } else if (leader_sequence_two_keys(KC_Y, KC_Y)) {
         uint16_t keycodes[] = {UU_SEL_LINE, U_CPY, 0};
