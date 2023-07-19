@@ -50,7 +50,10 @@ void magic_tap_key(magic_key_t keytype) {
 
 
 
-
+// Use the macro MAGIC_SET instead of using this function.
+// Its much easier to use.
+// If you realy whant to user the function, See the header file
+// for declaration of the MAGIC_SET macro.
 void magic_set(magic_key_t keytype,
                void (*function_pointer)(uint16_t *keycodes_to_process),
                uint16_t *keycodes) {

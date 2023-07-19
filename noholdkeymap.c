@@ -178,10 +178,12 @@ void leader_end_user(void) {
         magic_set(NEXT_KEY_FRIEND ,NULL, keycodes_friend);
         magic_tap_key(NEXT_KEY_FRIEND);
     } else if (leader_sequence_one_key(KC_W)) {
-        uint16_t keycodes_next[] =      {UU_WORDR, 0};
-        uint16_t keycodes_friend[] =    {UU_WORDL, 0};
-        magic_set(NEXT_KEY ,NULL, keycodes_next);
-        magic_set(NEXT_KEY_FRIEND ,NULL, keycodes_friend);
+        MAGIC_SET(NEXT_KEY, NULL,UU_WORDR)
+        MAGIC_SET(NEXT_KEY_FRIEND ,NULL,UU_WORDL)
+        /* uint16_t keycodes_next[] =      {UU_WORDR, 0}; */
+        /* uint16_t keycodes_friend[] =    {UU_WORDL, 0}; */
+        /* magic_set(NEXT_KEY ,NULL, keycodes_next); */
+        /* magic_set(NEXT_KEY_FRIEND ,NULL, keycodes_friend); */
         magic_tap_key(NEXT_KEY);
     /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_B)) {
@@ -192,10 +194,12 @@ void leader_end_user(void) {
         magic_tap_key(NEXT_KEY_FRIEND);
 
     } else if (leader_sequence_two_keys(KC_V, KC_W)) {
-        uint16_t keycodes_friend[] = {UU_SEL_WORDL, 0};
-        uint16_t keycodes_next[] =   {UU_SEL_WORDR, 0};
-        magic_set(NEXT_KEY_FRIEND, NULL, keycodes_friend);
-        magic_set(NEXT_KEY ,NULL, keycodes_next);
+        MAGIC_SET(NEXT_KEY, NULL, UU_SEL_WORDR)
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_WORDL)
+        /* uint16_t keycodes_friend[] = {UU_SEL_WORDL, 0}; */
+        /* uint16_t keycodes_next[] =   {UU_SEL_WORDR, 0}; */
+        /* magic_set(NEXT_KEY_FRIEND, NULL, keycodes_friend); */
+        /* magic_set(NEXT_KEY ,NULL, keycodes_next); */
         magic_tap_key(NEXT_KEY);
     /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_B)) {

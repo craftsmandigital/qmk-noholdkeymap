@@ -17,7 +17,9 @@
 
 #pragma once
 
-
+#define MAGIC_SET(argKeyType, argFunction, ...) \
+    uint16_t keycodes_##argKeyType[] = {__VA_ARGS__, 0}; \
+    magic_set(argKeyType, argFunction, keycodes_##argKeyType);
 
 #define MAGIC_KEYS_DEFAULT_CONFIG
 
