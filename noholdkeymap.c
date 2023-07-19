@@ -174,12 +174,12 @@ void leader_end_user(void) {
     } else if (leader_sequence_one_key(KC_B)) {
         uint16_t keycodes_next[] =      {UU_WORDR, 0};
         uint16_t keycodes_friend[] =    {UU_WORDL, 0};
-        magic_execute_key(NULL, keycodes_friend, NEXT_KEY_FRIEND);
         magic_set(NEXT_KEY,NULL, keycodes_next);
+        magic_set(NEXT_KEY_FRIEND ,NULL, keycodes_friend);
+        magic_tap_key(NEXT_KEY_FRIEND);
     } else if (leader_sequence_one_key(KC_W)) {
         uint16_t keycodes_next[] =      {UU_WORDR, 0};
         uint16_t keycodes_friend[] =    {UU_WORDL, 0};
-        /* magic_execute_key(NULL, keycodes_next, NO_KEY); */
         magic_set(NEXT_KEY ,NULL, keycodes_next);
         magic_set(NEXT_KEY_FRIEND ,NULL, keycodes_friend);
         magic_tap_key(NEXT_KEY);
@@ -187,29 +187,39 @@ void leader_end_user(void) {
     } else if (leader_sequence_two_keys(KC_V, KC_B)) {
         uint16_t keycodes_friend[] = {UU_SEL_WORDL, 0};
         uint16_t keycodes_next[] =   {UU_SEL_WORDR, 0};
-        magic_execute_key(NULL, keycodes_friend, NEXT_KEY_FRIEND);
         magic_set(NEXT_KEY, NULL, keycodes_next);
+        magic_set(NEXT_KEY_FRIEND ,NULL, keycodes_friend);
+        magic_tap_key(NEXT_KEY_FRIEND);
+
     } else if (leader_sequence_two_keys(KC_V, KC_W)) {
         uint16_t keycodes_friend[] = {UU_SEL_WORDL, 0};
         uint16_t keycodes_next[] =   {UU_SEL_WORDR, 0};
-        /* magic_execute_key(NULL, keycodes_next, NO_KEY); */
         magic_set(NEXT_KEY_FRIEND, NULL, keycodes_friend);
         magic_set(NEXT_KEY ,NULL, keycodes_next);
         magic_tap_key(NEXT_KEY);
     /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_B)) {
         uint16_t keycodes[] = {UU_SEL_WORDL, U_CUT, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        /* magic_execute_key(NULL, keycodes, NO_KEY); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
     } else if (leader_sequence_two_keys(KC_D, KC_W)) {
         uint16_t keycodes[] = {UU_SEL_WORDR, U_CUT, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        /* magic_execute_key(NULL, keycodes, NO_KEY); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
+
     /* Copying */
     } else if (leader_sequence_two_keys(KC_Y, KC_B)) {
         uint16_t keycodes[] = {UU_SEL_WORDL, U_CPY, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        /* magic_execute_key(NULL, keycodes, NO_KEY); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
     } else if (leader_sequence_two_keys(KC_Y, KC_W)) {
         uint16_t keycodes[] = {UU_SEL_WORDR, U_CPY, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        /* magic_execute_key(NULL, keycodes, NO_KEY); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
 
 
     /* Line stuff */
@@ -218,7 +228,9 @@ void leader_end_user(void) {
         /* SEND_STRING(UU_SEL_LINE); */
         /* uint16_t keycodes[] = {KC_HOME, S(KC_DOWN), U_CUT, 0}; */
         uint16_t keycodes[] = {UU_SEL_LINE, 0};
-        magic_execute_key(NULL, keycodes, NEXT_KEY_FRIEND);
+        /* magic_execute_key(NULL, keycodes, NEXT_KEY_FRIEND); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
         /* set_oneshot_mods(MOD_BIT(KC_RSFT)); */
         /* uint16_t keycodes[] = {KC_HOME, S(KC_DOWN), U_CUT, 0};  // Declaration of an array with keycodes and sentinel */
         /* uint16_t keycodes[] = {OSM(MOD_BIT(KC_RSFT)), 0};  // Declaration of an array with keycodes and sentinel */
@@ -229,34 +241,48 @@ void leader_end_user(void) {
         /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_D)) {
         uint16_t keycodes[] = {UU_SEL_LINE, U_CUT, 0};
-        magic_execute_key(NULL, keycodes, NEXT_KEY_FRIEND);
+        /* magic_execute_key(NULL, keycodes, NEXT_KEY_FRIEND); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
     /* Copying */
     } else if (leader_sequence_two_keys(KC_Y, KC_Y)) {
         uint16_t keycodes[] = {UU_SEL_LINE, U_CPY, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        /* magic_execute_key(NULL, keycodes, NO_KEY); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
 
 
     /* Paragraph/sentence stuff */
     /* Moving */
     } else if (leader_sequence_two_keys(KC_G,KC_J)) {
         uint16_t keycodes[] = {UU_GRAPH_DN, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        /* magic_execute_key(NULL, keycodes, NO_KEY); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
     } else if (leader_sequence_two_keys(KC_G, KC_K)) {
         uint16_t keycodes[] = {UU_GRAPH_UP, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        /* magic_execute_key(NULL, keycodes, NO_KEY); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
     /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_P)) {
         uint16_t keycodes[] = {UU_SEL_GRAPH_DN, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        /* magic_execute_key(NULL, keycodes, NO_KEY); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
     /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_P)) {
         uint16_t keycodes[] = {UU_SEL_GRAPH_DN, U_CUT, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        /* magic_execute_key(NULL, keycodes, NO_KEY); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
     /* Copying */
     } else if (leader_sequence_two_keys(KC_Y, KC_P)) {
         /* SEND_STRING(UU_SEL_GRAPH_DN UU_CPY); */
         uint16_t keycodes[] = {UU_SEL_GRAPH_DN, U_CPY, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        /* magic_execute_key(NULL, keycodes, NO_KEY); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
 
 
 
@@ -264,16 +290,22 @@ void leader_end_user(void) {
     /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_A)) {
         uint16_t keycodes[] = {UU_SEL_ALL, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        /* magic_execute_key(NULL, keycodes, NO_KEY); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
     /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_A)) {
         uint16_t keycodes[] = {UU_SEL_ALL, U_CUT, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        /* magic_execute_key(NULL, keycodes, NO_KEY); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
     /* Copying */
     } else if (leader_sequence_two_keys(KC_Y, KC_A)) {
         /* SEND_STRING(UU_SEL_ALL UU_CPY); */
         uint16_t keycodes[] = {UU_SEL_ALL, U_CPY, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        /* magic_execute_key(NULL, keycodes, NO_KEY); */
+        magic_set(NEXT_KEY, NULL, keycodes);
+        magic_tap_key(NEXT_KEY);
 
 
 
