@@ -52,6 +52,7 @@
 
   JK_NEXT_KEY,
   FD_NEXT_KEY_FRIEND,
+  VC_QUOTATION_END_KEY
 };
 
 
@@ -73,6 +74,7 @@ const uint16_t PROGMEM re_combo[] =  {KC_R, 	KC_E,	COMBO_END};
 
 const uint16_t PROGMEM jk_combo[] =  {KC_J,		KC_K,	COMBO_END};
 const uint16_t PROGMEM fd_combo[] =  {KC_F, 	KC_D,	COMBO_END};
+const uint16_t PROGMEM vc_combo[] =  {KC_V, 	KC_C,	COMBO_END};
 
 combo_t key_combos[] = {
 /*
@@ -95,6 +97,7 @@ combo_t key_combos[] = {
 
   [JK_NEXT_KEY] =           COMBO_ACTION(jk_combo),
   [FD_NEXT_KEY_FRIEND] =    COMBO_ACTION(fd_combo),
+  [VC_QUOTATION_END_KEY] =    COMBO_ACTION(vc_combo),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -107,6 +110,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case FD_NEXT_KEY_FRIEND:
       if (pressed) {
         magic_tap_key(NEXT_KEY_FRIEND);
+      }
+      break;
+    case VC_QUOTATION_END_KEY:
+      if (pressed) {
+        magic_tap_key(QUOTATION_END_KEY);
       }
       break;
   }
@@ -164,19 +172,30 @@ void leader_end_user(void) {
     /* Word stuff */
     /* Moving */
     } else if (leader_sequence_one_key(KC_B)) {
-        uint16_t keycodes[] = {UU_WORDL, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
-        test();
+        uint16_t keycodes_next[] =      {UU_WORDR, 0};
+        uint16_t keycodes_friend[] =    {UU_WORDL, 0};
+        magic_execute_key(NULL, keycodes_friend, NEXT_KEY_FRIEND);
+        magic_set(NEXT_KEY,NULL, keycodes_next);
     } else if (leader_sequence_one_key(KC_W)) {
-        uint16_t keycodes[] = {UU_WORDR, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        uint16_t keycodes_next[] =      {UU_WORDR, 0};
+        uint16_t keycodes_friend[] =    {UU_WORDL, 0};
+        /* magic_execute_key(NULL, keycodes_next, NO_KEY); */
+        magic_set(NEXT_KEY ,NULL, keycodes_next);
+        magic_set(NEXT_KEY_FRIEND ,NULL, keycodes_friend);
+        magic_tap_key(NEXT_KEY);
     /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_B)) {
-        uint16_t keycodes[] = {UU_SEL_WORDL, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        uint16_t keycodes_friend[] = {UU_SEL_WORDL, 0};
+        uint16_t keycodes_next[] =   {UU_SEL_WORDR, 0};
+        magic_execute_key(NULL, keycodes_friend, NEXT_KEY_FRIEND);
+        magic_set(NEXT_KEY, NULL, keycodes_next);
     } else if (leader_sequence_two_keys(KC_V, KC_W)) {
-        uint16_t keycodes[] = {UU_SEL_WORDR, 0};
-        magic_execute_key(NULL, keycodes, NO_KEY);
+        uint16_t keycodes_friend[] = {UU_SEL_WORDL, 0};
+        uint16_t keycodes_next[] =   {UU_SEL_WORDR, 0};
+        /* magic_execute_key(NULL, keycodes_next, NO_KEY); */
+        magic_set(NEXT_KEY_FRIEND, NULL, keycodes_friend);
+        magic_set(NEXT_KEY ,NULL, keycodes_next);
+        magic_tap_key(NEXT_KEY);
     /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_B)) {
         uint16_t keycodes[] = {UU_SEL_WORDL, U_CUT, 0};
