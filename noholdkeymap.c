@@ -172,88 +172,65 @@ void leader_end_user(void) {
     /* Word stuff */
     /* Moving */
     } else if (leader_sequence_one_key(KC_B)) {
-        uint16_t keycodes_next[] =      {UU_WORDR, 0};
-        uint16_t keycodes_friend[] =    {UU_WORDL, 0};
-        magic_set(NEXT_KEY,NULL, keycodes_next);
-        magic_set(NEXT_KEY_FRIEND ,NULL, keycodes_friend);
+        MAGIC_SET(NEXT_KEY, NULL, UU_WORDR)
+        MAGIC_SET(NEXT_KEY_FRIEND ,NULL, UU_WORDL)
         magic_tap_key(NEXT_KEY_FRIEND);
     } else if (leader_sequence_one_key(KC_W)) {
         MAGIC_SET(NEXT_KEY, NULL,UU_WORDR)
         MAGIC_SET(NEXT_KEY_FRIEND ,NULL,UU_WORDL)
-        /* uint16_t keycodes_next[] =      {UU_WORDR, 0}; */
-        /* uint16_t keycodes_friend[] =    {UU_WORDL, 0}; */
-        /* magic_set(NEXT_KEY ,NULL, keycodes_next); */
-        /* magic_set(NEXT_KEY_FRIEND ,NULL, keycodes_friend); */
         magic_tap_key(NEXT_KEY);
+
     /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_B)) {
-        uint16_t keycodes_friend[] = {UU_SEL_WORDL, 0};
-        uint16_t keycodes_next[] =   {UU_SEL_WORDR, 0};
-        magic_set(NEXT_KEY, NULL, keycodes_next);
-        magic_set(NEXT_KEY_FRIEND ,NULL, keycodes_friend);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_SEL_WORDR);
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_WORDL);
         magic_tap_key(NEXT_KEY_FRIEND);
-
     } else if (leader_sequence_two_keys(KC_V, KC_W)) {
         MAGIC_SET(NEXT_KEY, NULL, UU_SEL_WORDR)
         MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_WORDL)
-        /* uint16_t keycodes_friend[] = {UU_SEL_WORDL, 0}; */
-        /* uint16_t keycodes_next[] =   {UU_SEL_WORDR, 0}; */
-        /* magic_set(NEXT_KEY_FRIEND, NULL, keycodes_friend); */
-        /* magic_set(NEXT_KEY ,NULL, keycodes_next); */
         magic_tap_key(NEXT_KEY);
+
     /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_B)) {
-        uint16_t keycodes[] = {UU_SEL_WORDL, U_CUT, 0};
-        /* magic_execute_key(NULL, keycodes, NO_KEY); */
-        magic_set(NEXT_KEY, NULL, keycodes);
-        magic_tap_key(NEXT_KEY);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_SEL_WORDR, U_CUT);
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_WORDL, U_CUT);
+        magic_tap_key(NEXT_KEY_FRIEND);
     } else if (leader_sequence_two_keys(KC_D, KC_W)) {
-        uint16_t keycodes[] = {UU_SEL_WORDR, U_CUT, 0};
-        /* magic_execute_key(NULL, keycodes, NO_KEY); */
-        magic_set(NEXT_KEY, NULL, keycodes);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_SEL_WORDR, U_CUT);
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_WORDL, U_CUT);
         magic_tap_key(NEXT_KEY);
 
     /* Copying */
     } else if (leader_sequence_two_keys(KC_Y, KC_B)) {
-        uint16_t keycodes[] = {UU_SEL_WORDL, U_CPY, 0};
-        /* magic_execute_key(NULL, keycodes, NO_KEY); */
-        magic_set(NEXT_KEY, NULL, keycodes);
-        magic_tap_key(NEXT_KEY);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_SEL_WORDR, U_CPY);
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_WORDL, U_CPY);
+        magic_tap_key(NEXT_KEY_FRIEND);
     } else if (leader_sequence_two_keys(KC_Y, KC_W)) {
-        uint16_t keycodes[] = {UU_SEL_WORDR, U_CPY, 0};
-        /* magic_execute_key(NULL, keycodes, NO_KEY); */
-        magic_set(NEXT_KEY, NULL, keycodes);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_SEL_WORDR, U_CPY);
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_WORDL, U_CPY);
         magic_tap_key(NEXT_KEY);
-
 
     /* Line stuff */
     /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_V)) {
-        /* SEND_STRING(UU_SEL_LINE); */
-        /* uint16_t keycodes[] = {KC_HOME, S(KC_DOWN), U_CUT, 0}; */
-        uint16_t keycodes[] = {UU_SEL_LINE, 0};
-        /* magic_execute_key(NULL, keycodes, NEXT_KEY_FRIEND); */
-        magic_set(NEXT_KEY, NULL, keycodes);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_SEL_LINE); // Dummy key to tap. Because first key pressed is unlike NEXT_KEY/NEXT_KEY_FRIEND
         magic_tap_key(NEXT_KEY);
-        /* set_oneshot_mods(MOD_BIT(KC_RSFT)); */
-        /* uint16_t keycodes[] = {KC_HOME, S(KC_DOWN), U_CUT, 0};  // Declaration of an array with keycodes and sentinel */
-        /* uint16_t keycodes[] = {OSM(MOD_BIT(KC_RSFT)), 0};  // Declaration of an array with keycodes and sentinel */
-        /* // Access and print the array elements until the sentinel is encountered */
-        /* for (int i = 0; keycodes[i] != 0; i++) { */
-        /*     tap_code16(keycodes[i]); */
-        /* } */
+        MAGIC_SET(NEXT_KEY, NULL, S(KC_DOWN));
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, S(KC_UP));
+
         /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_D)) {
-        uint16_t keycodes[] = {UU_SEL_LINE, U_CUT, 0};
-        /* magic_execute_key(NULL, keycodes, NEXT_KEY_FRIEND); */
-        magic_set(NEXT_KEY, NULL, keycodes);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_SEL_LINE, U_CUT); // Dummy key to tap. Because first key pressed is unlike NEXT_KEY/NEXT_KEY_FRIEND
         magic_tap_key(NEXT_KEY);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_SEL_LINE, KC_DEL);
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, KC_UP, UU_SEL_LINE, KC_DEL );
+
     /* Copying */
     } else if (leader_sequence_two_keys(KC_Y, KC_Y)) {
-        uint16_t keycodes[] = {UU_SEL_LINE, U_CPY, 0};
-        /* magic_execute_key(NULL, keycodes, NO_KEY); */
-        magic_set(NEXT_KEY, NULL, keycodes);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_SEL_LINE, U_CPY); // Dummy key to tap. Because first key pressed is unlike NEXT_KEY/NEXT_KEY_FRIEND
         magic_tap_key(NEXT_KEY);
+        MAGIC_SET(NEXT_KEY ,NULL, KC_HOME, KC_HOME, U_PST); // Unselect and go home then paste copied text.
+        // Copy line does not have a friend :-(
 
 
     /* Paragraph/sentence stuff */
