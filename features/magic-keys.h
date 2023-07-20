@@ -16,6 +16,7 @@
 
 
 #pragma once
+#include QMK_KEYBOARD_H
 
 #define MAGIC_SET(argKeyType, argFunction, ...) \
     uint16_t keycodes_##argKeyType[] = {__VA_ARGS__, 0}; \
@@ -29,7 +30,6 @@
 #endif // Default config
 
 
-#include QMK_KEYBOARD_H
 
 /* #define MAGIC_KEYS_COUNT 3 */
 
