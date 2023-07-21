@@ -2,6 +2,11 @@
 
 
 
+void default_shift_one_shot(uint16_t keycodes_to_process[])
+{
+    magic_tap_machine(keycodes_to_process);
+	set_oneshot_mods(MOD_BIT(KC_RSFT));
+}
 
 
 void magic_key_set_all(uint16_t key)
@@ -18,7 +23,6 @@ void magic_key_set_all(uint16_t key)
         case KC_GRV:    // Processing for backtick (`)
             nextQuotationMark = key;
             break;
-
 
         // Processing for parentheses
         case KC_LPRN: // Processing for '(' character
@@ -38,6 +42,20 @@ void magic_key_set_all(uint16_t key)
         // case KC_RABK:   // Processing for right-pointing double angle quotation mark (»)
             nextQuotationMark = KC_RABK;
             break;
+
+
+
+
+        // Processing for all other characters
+
+        case KC_DOT:
+
+            MAGIC_SET(NEXT_KEY , default_shift_one_shot, KC_SPACE);
+            MAGIC_SET(NEXT_KEY_FRIEND , default_shift_one_shot, KC_ENT);
+            break;
+
+
+
     }
 
 

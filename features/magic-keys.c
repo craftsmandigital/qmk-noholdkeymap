@@ -41,9 +41,7 @@ void magic_tap_key(magic_key_t keytype) {
         // Execute provided function that takes care of the further processing
         magic_keys[keytype].function_pointer(magic_keys[keytype].keycodes);
     } else if (magic_keys[keytype].keycodes != NULL) {  // Tap keycodes
-        // Access and print the array elements until the sentinel(0) is encountere
-        for (int i = 0; magic_keys[keytype].keycodes[i] != 0; i++) {
-            tap_code16(magic_keys[keytype].keycodes[i]);
+        magic_tap_machine(magic_keys[keytype].keycodes); {
         }
     }
 }
@@ -84,3 +82,11 @@ void magic_set(magic_key_t keytype,
 
 }
 
+
+void magic_tap_machine(uint16_t *keycodes) {
+    // tap keycodes like a machinegun, single or family. Your choice hastalavista
+    // Access and print the array elements until the sentinel(0) is encountere
+    for (int i = 0; keycodes[i] != 0; i++) {
+        tap_code16(keycodes[i]);
+    }
+}

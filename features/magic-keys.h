@@ -53,3 +53,4 @@ void magic_set(magic_key_t keytype,
                void (*function_pointer)(uint16_t *keycodes_to_process),
                uint16_t *keycodes);
 
+void magic_tap_machine(uint16_t *keycodes);

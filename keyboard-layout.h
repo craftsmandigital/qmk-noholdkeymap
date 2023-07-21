@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Z , KC_X , KC_C , KC_V , QK_LEAD ,                  KC_N , KC_M ,U_UND ,US_ARNG, US_AE,
 //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
   U_NP,U_NP,          OSL(FUN),KC_SPC,QK_LEAD,    OSL(NUM),KC_BSPC,OSL(SYM),         U_NP,U_NP
-//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘ 
+//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
   ),
   [NUM] = LAYOUT_miryoku(
 //┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_PERC, KC_P1, KC_P2, KC_P3,KC_PEQL,                    KC_NO , KC_NO,KC_TRNS,KC_NO, KC_NO,
 //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
   U_NP,U_NP,            KC_P0,KC_TRNS, KC_LT,       KC_GT ,KC_TRNS,KC_NO,         U_NP,U_NP
-//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘ 
+//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
   ),
   [NAV] = LAYOUT_miryoku(
 //┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
@@ -74,18 +74,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
   U_NP,U_NP,           KC_TRNS,KC_TRNS,KC_TRNS,   KC_TRNS,KC_TRNS,KC_TRNS,         U_NP,U_NP
-//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘ 
+//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
   ),
   [SYM] = LAYOUT_miryoku(
 //┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
-KC_PLUS,KC_EXLM,KC_SCLN,KC_QUOT,KC_ASTR,                  KC_PCMM,KC_ENT,KC_PDOT,CW_TOGG,KC_CAPS,
+KC_PLUS,KC_EXLM,KC_SCLN,KC_QUOT,KC_ASTR,                  KC_PCMM,KC_ENT,KC_DOT,CW_TOGG,KC_CAPS,
 //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
 KC_PMNS,KC_QUES,KC_COLN,KC_DQUO,KC_PSLS,                 KC_LCBR,KC_LPRN,KC_LBRC,KC_DLR,KC_UNDS,
 //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
   KC_PERC, KC_NO, KC_AT,KC_GRV,KC_PEQL,                   KC_CIRC,KC_TILD,U_RDO,KC_AMPR,KC_HASH,
 //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
   U_NP,U_NP,           KC_PIPE,KC_BSLS,KC_LT,       KC_GT, KC_DEL,OSL(FUN),         U_NP,U_NP
-//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘ 
+//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
   ),
   [FUN] = LAYOUT_miryoku(
 //┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
@@ -96,7 +96,7 @@ KC_PMNS,KC_QUES,KC_COLN,KC_DQUO,KC_PSLS,                 KC_LCBR,KC_LPRN,KC_LBRC
     KC_NO, KC_F1, KC_F2, KC_F3,EE_CLR,                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
   U_NP,U_NP,            KC_F10,KC_F11,KC_F12,        KC_NO, KC_NO, KC_NO,         U_NP,U_NP
-//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘ 
+//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
   )
 };
 
