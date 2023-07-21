@@ -164,20 +164,22 @@ void leader_end_user(void) {
         //SEND_STRING("QMK is awesome.");
 		//layer_on(FUN);
 		set_oneshot_layer(FUN, ONESHOT_START);
-
     } else if (leader_sequence_one_key(KC_D)) {
-        /* SEND_STRING(U_CUT); */
-        /* magic_execute_key(test_function, NULL, NO_KEY); */
+        MAGIC_SET(NEXT_KEY, NULL, U_PST);
+        tap_code16(U_CUT);
+    } else if (leader_sequence_one_key(KC_Y)) {
+        MAGIC_SET(NEXT_KEY, NULL, U_PST);
+        tap_code16(U_CPY);
 
     /* Word stuff */
     /* Moving */
     } else if (leader_sequence_one_key(KC_B)) {
-        MAGIC_SET(NEXT_KEY, NULL, UU_WORDR)
-        MAGIC_SET(NEXT_KEY_FRIEND ,NULL, UU_WORDL)
+        MAGIC_SET(NEXT_KEY, NULL, UU_WORDR);
+        MAGIC_SET(NEXT_KEY_FRIEND ,NULL, UU_WORDL);
         magic_tap_key(NEXT_KEY_FRIEND);
     } else if (leader_sequence_one_key(KC_W)) {
-        MAGIC_SET(NEXT_KEY, NULL,UU_WORDR)
-        MAGIC_SET(NEXT_KEY_FRIEND ,NULL,UU_WORDL)
+        MAGIC_SET(NEXT_KEY, NULL,UU_WORDR);
+        MAGIC_SET(NEXT_KEY_FRIEND ,NULL,UU_WORDL);
         magic_tap_key(NEXT_KEY);
 
     /* Selecting */
@@ -186,8 +188,8 @@ void leader_end_user(void) {
         MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_WORDL);
         magic_tap_key(NEXT_KEY_FRIEND);
     } else if (leader_sequence_two_keys(KC_V, KC_W)) {
-        MAGIC_SET(NEXT_KEY, NULL, UU_SEL_WORDR)
-        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_WORDL)
+        MAGIC_SET(NEXT_KEY, NULL, UU_SEL_WORDR);
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_WORDL);
         magic_tap_key(NEXT_KEY);
 
     /* Deleting */
@@ -236,67 +238,37 @@ void leader_end_user(void) {
     /* Paragraph/sentence stuff */
     /* Moving */
     } else if (leader_sequence_two_keys(KC_G,KC_J)) {
-        uint16_t keycodes[] = {UU_GRAPH_DN, 0};
-        /* magic_execute_key(NULL, keycodes, NO_KEY); */
-        magic_set(NEXT_KEY, NULL, keycodes);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_GRAPH_DN);
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_GRAPH_UP);
         magic_tap_key(NEXT_KEY);
     } else if (leader_sequence_two_keys(KC_G, KC_K)) {
-        uint16_t keycodes[] = {UU_GRAPH_UP, 0};
-        /* magic_execute_key(NULL, keycodes, NO_KEY); */
-        magic_set(NEXT_KEY, NULL, keycodes);
-        magic_tap_key(NEXT_KEY);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_GRAPH_DN);
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_GRAPH_UP);
+        magic_tap_key(NEXT_KEY_FRIEND);
     /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_P)) {
-        uint16_t keycodes[] = {UU_SEL_GRAPH_DN, 0};
-        /* magic_execute_key(NULL, keycodes, NO_KEY); */
-        magic_set(NEXT_KEY, NULL, keycodes);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_SEL_GRAPH_DN);
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_GRAPH_UP);
         magic_tap_key(NEXT_KEY);
-    /* Deleting */
-    } else if (leader_sequence_two_keys(KC_D, KC_P)) {
-        uint16_t keycodes[] = {UU_SEL_GRAPH_DN, U_CUT, 0};
-        /* magic_execute_key(NULL, keycodes, NO_KEY); */
-        magic_set(NEXT_KEY, NULL, keycodes);
-        magic_tap_key(NEXT_KEY);
-    /* Copying */
-    } else if (leader_sequence_two_keys(KC_Y, KC_P)) {
-        /* SEND_STRING(UU_SEL_GRAPH_DN UU_CPY); */
-        uint16_t keycodes[] = {UU_SEL_GRAPH_DN, U_CPY, 0};
-        /* magic_execute_key(NULL, keycodes, NO_KEY); */
-        magic_set(NEXT_KEY, NULL, keycodes);
-        magic_tap_key(NEXT_KEY);
-
 
 
     /* All stuff */
     /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_A)) {
-        uint16_t keycodes[] = {UU_SEL_ALL, 0};
-        /* magic_execute_key(NULL, keycodes, NO_KEY); */
-        magic_set(NEXT_KEY, NULL, keycodes);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_SEL_ALL); // Dummy key to tap. Because first key pressed is unlike NEXT_KEY/NEXT_KEY_FRIEND
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, U_CUT);
         magic_tap_key(NEXT_KEY);
+        MAGIC_SET(NEXT_KEY ,NULL, U_CPY);
     /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_A)) {
-        uint16_t keycodes[] = {UU_SEL_ALL, U_CUT, 0};
-        /* magic_execute_key(NULL, keycodes, NO_KEY); */
-        magic_set(NEXT_KEY, NULL, keycodes);
+        MAGIC_SET(NEXT_KEY, NULL ,UU_SEL_ALL, U_CUT); // Dummy key to tap. Because first key pressed is unlike NEXT_KEY/NEXT_KEY_FRIEND
         magic_tap_key(NEXT_KEY);
+        MAGIC_SET(NEXT_KEY, NULL, U_PST);
     /* Copying */
     } else if (leader_sequence_two_keys(KC_Y, KC_A)) {
-        /* SEND_STRING(UU_SEL_ALL UU_CPY); */
-        uint16_t keycodes[] = {UU_SEL_ALL, U_CPY, 0};
-        /* magic_execute_key(NULL, keycodes, NO_KEY); */
-        magic_set(NEXT_KEY, NULL, keycodes);
+        MAGIC_SET(NEXT_KEY ,NULL, UU_SEL_ALL, U_CPY); // Dummy key to tap. Because first key pressed is unlike NEXT_KEY/NEXT_KEY_FRIEND
         magic_tap_key(NEXT_KEY);
-
-
-
-
-    } else if (leader_sequence_three_keys(KC_D, KC_D, KC_S)) {
-        // Leader, d, d, s => Types the below string
-        SEND_STRING("https://start.duckduckgo.com\n");
-    } else if (leader_sequence_two_keys(KC_A, KC_S)) {
-        // Leader, a, s => GUI+S
-        tap_code16(LGUI(KC_S));
+        MAGIC_SET(NEXT_KEY ,NULL, UU_SEL_ALL, U_PST);
     }
 
 //---------------------------------------------------------------

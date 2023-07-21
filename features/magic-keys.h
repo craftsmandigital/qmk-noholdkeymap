@@ -24,7 +24,7 @@
     do { \
         uint16_t keycodes_##argKeyType[] = {__VA_ARGS__, 0}; \
         magic_set(argKeyType, argFunction, keycodes_##argKeyType); \
-    } while(0);
+    } while(0)
 
 
 #define MAGIC_KEYS_DEFAULT_CONFIG
