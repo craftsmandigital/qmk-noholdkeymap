@@ -48,6 +48,18 @@ void caps_word(togle_actions_t action, uint8_t key) {
 
 
 
+void num_word(togle_actions_t action, uint8_t key) {
+
+    bool layerOn = (IS_LAYER_ON(NUM));
+    if (action == TOGGLE_OF_IF_ON && layerOn) {
+        // The NUM layer is active
+        switch(key){
+            case KC_SPC:
+            case KC_ESC:
+                layer_off(NUM);
+            }
+    }
+}
 
 // static bool holding_oneshot_layer = false;
 // uint16_t my_key_pressed_timer = 0;
@@ -363,6 +375,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if (record->event.pressed){
         magic_key_set_all(keycode);
         caps_word(TOGGLE_OF_IF_ON, keycode);
+        num_word(TOGGLE_OF_IF_ON, keycode);
 
 	}
 	// if (IS_LAYER_ON(FUN) && !record->event.pressed){
