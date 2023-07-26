@@ -37,6 +37,8 @@ enum custom_keycodes {
 	_AA, // Åå
 	_AE, // æÆ
 	_OE, // øØ
+
+	CWM_TOGG,
 };
 
 enum layers { BASE, NUM, NAV, SYM, FUN };
@@ -78,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [SYM] = LAYOUT_miryoku(
 //┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
-KC_PLUS,KC_EXLM,KC_SCLN,KC_QUOT,KC_ASTR,                  KC_PCMM,KC_ENT,KC_DOT,CW_TOGG,KC_CAPS,
+KC_PLUS,KC_EXLM,KC_SCLN,KC_QUOT,KC_ASTR,                  KC_PCMM,KC_ENT,KC_DOT,CWM_TOGG,KC_CAPS,
 //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
 KC_PMNS,KC_QUES,KC_COLN,KC_DQUO,KC_PSLS,                 KC_LCBR,KC_LPRN,KC_LBRC,KC_DLR,KC_UNDS,
 //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤

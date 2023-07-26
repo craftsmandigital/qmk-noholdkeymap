@@ -25,6 +25,28 @@
 #include "features/magic-keys.h"
 
 
+typedef enum {
+    TOGGLE_ON,
+    TOGGLE_OF_IF_ON,
+} togle_actions_t;
+
+void caps_word(togle_actions_t action, uint8_t key) {
+    bool capsOn;
+    capsOn = (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK));
+    if (action == TOGGLE_ON && !capsOn) {
+        // Caps Lock is off
+        tap_code(KC_CAPS);
+    } else if (action == TOGGLE_OF_IF_ON && capsOn) {
+            switch(key){
+                case KC_SPC:
+                case KC_ESC:
+                case KC_ENTER:
+                    tap_code(KC_CAPS);
+            }
+    }
+}
+
+
 
 
 // static bool holding_oneshot_layer = false;
@@ -340,6 +362,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 	if (record->event.pressed){
         magic_key_set_all(keycode);
+        caps_word(TOGGLE_OF_IF_ON, keycode);
+
 	}
 	// if (IS_LAYER_ON(FUN) && !record->event.pressed){
 		// clear_oneshot_layer_state(ONESHOT_PRESSED);
@@ -349,20 +373,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		// clear_oneshot_layer_state(ONESHOT_PRESSED);
 		// holding_oneshot_layer = false;
 	// }
-/*
- 	if (record->event.pressed && (keycode != MY_PREV))
-	{
-		remember_key(PREVIOUS_KEY, SET, keycode);
-	}
-
     switch (keycode) {
 
-    case MY_PREV:
+    case CWM_TOGG:
         if (record->event.pressed) {
-            // when key " is pressed
-            tap_code(remember_key(PREVIOUS_KEY, GET, KC_NO));
+                caps_word(TOGGLE_ON, 0);
         }
         break;
+    }
+/*
 
     case KC_SPC:
         if (record->event.pressed) {

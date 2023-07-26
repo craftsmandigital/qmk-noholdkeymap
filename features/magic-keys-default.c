@@ -18,8 +18,8 @@ void magic_key_set_all(uint16_t key)
         // Common processing for all parentheses and quotation mark characters
 
         // Processing for quotation mark characters
-        case KC_QUOT:   // Proc5essing for double quotation mark (")
-        case KC_SCLN:   // Processing for single quotation mark (')
+        case KC_QUOT:   // Proc5essing for single quotation mark (')
+        case KC_DQUO:   // Processing for double quotation mark (")
         case KC_GRV:    // Processing for backtick (`)
             nextQuotationMark = key;
             break;
