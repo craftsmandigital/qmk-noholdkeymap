@@ -44,61 +44,61 @@ enum custom_keycodes {
 enum layers { BASE, NUM, NAV, SYM, FUN };
 
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =  {
   [BASE] = LAYOUT_miryoku(
-//┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
-    KC_Q , KC_W , KC_E , KC_R , KC_T ,                      KC_Y , KC_U , KC_I , KC_O , KC_P ,
-//├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-    KC_A , KC_S , KC_D , KC_F , KC_G ,                      KC_H , KC_J , KC_K , KC_L ,US_OSTR,
-//├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-    KC_Z , KC_X , KC_C , KC_V , QK_LEAD ,                  KC_N , KC_M ,U_UND ,US_ARNG, US_AE,
-//└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
-  U_NP,U_NP,          OSL(FUN),KC_SPC,QK_LEAD,    TG(NUM),KC_BSPC,OSL(SYM),         U_NP,U_NP
-//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
-  ),
+    //┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
+      KC_Q , KC_W , KC_E , KC_R , KC_T ,                      KC_Y , KC_U , KC_I , KC_O , KC_P ,
+    //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
+     KC_A , KC_S , KC_D , KC_F , KC_G ,                      KC_H , KC_J , KC_K , KC_L ,US_OSTR,
+    //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
+        KC_Z , KC_X , KC_C , KC_V , QK_LEAD ,                  KC_N , KC_M ,U_UND ,US_ARNG, US_AE,
+    //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
+      U_NP,U_NP,          OSL(FUN),KC_SPC,QK_LEAD,   OSL(NUM),KC_BSPC,OSL(SYM),         U_NP,U_NP
+    //                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
+    ),
   [NUM] = LAYOUT_miryoku(
-//┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
-  KC_PLUS, KC_7 , KC_8 , KC_9 ,KC_ASTR,                   KC_PCMM,KC_ENT,KC_PDOT,KC_NO, KC_NO,
-//├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-  KC_PMNS, KC_4 , KC_5 , KC_6 ,KC_PSLS,                   KC_LEFT,KC_DOWN,KC_UP,KC_RGHT,KC_NO,
-//├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-  KC_PERC, KC_1 , KC_2 , KC_3 ,KC_EQL,                    KC_NO , KC_NO,KC_TRNS,KC_NO, KC_NO,
-//└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
-  U_NP,U_NP,            KC_P0,KC_TRNS, KC_LT,       KC_GT ,KC_TRNS,KC_NO,         U_NP,U_NP
-//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
-  ),
+    //┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
+    KC_PLUS, KC_7 , KC_8 , KC_9 ,KC_ASTR,                   KC_PCMM,KC_ENT,KC_PDOT,KC_NO, KC_NO,
+    //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
+      KC_PMNS, KC_4 , KC_5 , KC_6 ,KC_PSLS,                   KC_LEFT,KC_DOWN,KC_UP,KC_RGHT,KC_NO,
+    //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
+      KC_PERC, KC_1 , KC_2 , KC_3 ,KC_EQL,                    KC_NO , KC_NO,KC_TRNS,KC_NO, KC_NO,
+    //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
+      U_NP,U_NP,            KC_P0,KC_TRNS, KC_LT,       KC_GT ,KC_TRNS,KC_NO,         U_NP,U_NP
+    //                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
+    ),
   [NAV] = LAYOUT_miryoku(
-//┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
- KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-//├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
- KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                 KC_LEFT,KC_DOWN,KC_UP,KC_RGHT,KC_TRNS,
-//├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
- KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-//└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
-  U_NP,U_NP,           KC_TRNS,KC_TRNS,KC_TRNS,   KC_TRNS,KC_TRNS,KC_TRNS,         U_NP,U_NP
-//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
+    //┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
+     KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+    //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
+    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                 KC_LEFT,KC_DOWN,KC_UP,KC_RGHT,KC_TRNS,
+    //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
+    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+    //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
+      U_NP,U_NP,           KC_TRNS,KC_TRNS,KC_TRNS,   KC_TRNS,KC_TRNS,KC_TRNS,         U_NP,U_NP
+    //                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
   ),
   [SYM] = LAYOUT_miryoku(
-//┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
-KC_PLUS,KC_EXLM,KC_SCLN,KC_QUOT,KC_ASTR,                  KC_PCMM,KC_ENT,KC_DOT,CWM_TOGG,KC_CAPS,
-//├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-KC_PMNS,KC_QUES,KC_COLN,KC_DQUO,KC_PSLS,                 KC_LCBR,KC_LPRN,KC_LBRC,KC_DLR,KC_UNDS,
-//├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-  KC_PERC, KC_NO, KC_AT,KC_GRV,KC_EQL,                   KC_CIRC,KC_TILD,U_RDO,KC_AMPR,KC_HASH,
-//└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
-  U_NP,U_NP,           KC_PIPE,KC_BSLS,KC_LT,       KC_GT, KC_DEL,OSL(FUN),         U_NP,U_NP
-//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
+    //┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
+    KC_PLUS,KC_EXLM,KC_SCLN,KC_QUOT,KC_ASTR,                  KC_PCMM,KC_ENT,KC_DOT,CWM_TOGG,KC_CAPS,
+    //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
+    KC_PMNS,KC_QUES,KC_COLN,KC_DQUO,KC_PSLS,                 KC_LCBR,KC_LPRN,KC_LBRC,KC_DLR,KC_UNDS,
+    //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
+     KC_PERC, KC_NO, KC_AT,KC_GRV,KC_EQL,                   KC_CIRC,KC_TILD,U_RDO,KC_AMPR,KC_HASH,
+    //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
+      U_NP,U_NP,           KC_PIPE,KC_BSLS,KC_LT,       KC_GT, KC_DEL,OSL(FUN),         U_NP,U_NP
+    //                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
   ),
   [FUN] = LAYOUT_miryoku(
-//┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
-   KC_NO , KC_F7, KC_F8, KC_F9,QK_BOOT,                     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-//├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-   KC_NO , KC_F4, KC_F5, KC_F6,DB_TOGG,                     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-//├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-    KC_NO, KC_F1, KC_F2, KC_F3,EE_CLR,                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-//└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
-  U_NP,U_NP,            KC_F10,KC_F11,KC_F12,        KC_NO, KC_NO, KC_NO,         U_NP,U_NP
-//                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
+    //┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
+       KC_NO , KC_F7, KC_F8, KC_F9,QK_BOOT,                     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
+       KC_NO , KC_F4, KC_F5, KC_F6,DB_TOGG,                     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
+       KC_NO, KC_F1, KC_F2, KC_F3,EE_CLR,                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
+      U_NP,U_NP,            KC_F10,KC_F11,KC_F12,        KC_NO, KC_NO, KC_NO,         U_NP,U_NP
+    //                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
   )
 };
 
