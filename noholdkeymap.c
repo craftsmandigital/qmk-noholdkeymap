@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdint.h>
 #include QMK_KEYBOARD_H
 
 #include "noholdkeymap.h"
@@ -53,6 +54,23 @@ void num_word(togle_actions_t action, uint8_t key) {
             case KC_ESC:
                 layer_off(NUM);
         }
+    }
+}
+
+void turn_off_nav_layer(uint8_t key) {
+    if (IS_LAYER_ON(NAV)) {
+        // The NAV layer is active
+        // could not find a way to test on KC_TRANS. Then I had to test all the keys on the lyer.
+        switch (key) {
+            case KC_LEFT:
+            case KC_RIGHT:
+            case KC_UP:
+            case KC_DOWN:
+            case KC_PGUP:
+            case KC_PGDN:
+                return; // do nothing and return from function.
+        }
+        layer_off(NAV);
     }
 }
 
@@ -177,7 +195,22 @@ void leader_start_user(void) {
 }
 
 void leader_end_user(void) {
-    if (leader_sequence_one_key(KC_F)) {
+    // Fire nav layer after done firststep navigation
+    // with tha arrow keys
+    if (leader_sequence_one_key(KC_H)) {
+        tap_code16(KC_LEFT);
+        layer_on(NAV);
+    } else if (leader_sequence_one_key(KC_J)) {
+        tap_code16(KC_DOWN);
+        layer_on(NAV);
+    } else if (leader_sequence_one_key(KC_K)) {
+        tap_code16(KC_UP);
+        layer_on(NAV);
+    } else if (leader_sequence_one_key(KC_L)) {
+        tap_code16(KC_RIGHT);
+        layer_on(NAV);
+
+    } else if (leader_sequence_one_key(KC_F)) {
         // Leader, f => Types the below string
         // SEND_STRING("QMK is awesome.");
         // layer_on(FUN);
@@ -354,7 +387,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         magic_key_set_all(keycode);
         caps_word(TOGGLE_OF_IF_ON, keycode);
         num_word(TOGGLE_OF_IF_ON, keycode);
+    } else {
+        turn_off_nav_layer(keycode);
     }
+
     // if (IS_LAYER_ON(FUN) && !record->event.pressed){
     // clear_oneshot_layer_state(ONESHOT_PRESSED);
     // }

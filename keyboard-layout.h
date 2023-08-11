@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =  {
     //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
     KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
     //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
-      U_NP,U_NP,           KC_TRNS,KC_TRNS,KC_TRNS,   KC_TRNS,KC_TRNS,KC_TRNS,         U_NP,U_NP
+      U_NP,U_NP,           KC_PGDN,KC_TRNS,KC_TRNS,   KC_TRNS,KC_TRNS,KC_PGUP,         U_NP,U_NP
     //                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
   ),
   [SYM] = LAYOUT_miryoku(

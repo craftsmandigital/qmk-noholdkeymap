@@ -6,7 +6,7 @@
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
- 
+
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
@@ -16,6 +16,9 @@
 
 #pragma once
 
+/* https://github.com/qmk/qmk_firmware/blob/master/docs/feature_combo.md#layer-independent-combos */
+/* Does not work :-(   */
+/* #define COMBO_ONLY_FROM_LAYER 0 */
 
 #define U_NP KC_NO // key is not present
 #define U_NA KC_NO // present but not available for use
