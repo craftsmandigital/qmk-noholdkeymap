@@ -91,13 +91,14 @@ enum combo_events {
     KI_ALT,
     JU_SHIFT,
     DE_GUI,
+    DOWNUP_ESC,
+    JK_ESC,
+    FD_TAB,
 
-    UI_ESC,
-    RE_TAB,
-
-    JK_NEXT_KEY,
-    FD_NEXT_KEY_FRIEND,
-    VC_QUOTATION_END_KEY
+    /* JK_NEXT_KEY, */
+    /* FD_NEXT_KEY_FRIEND, */
+    VC_QUOTATION_END_KEY,
+    KL_FUN,
 };
 
 // combos stuff
@@ -113,11 +114,13 @@ const uint16_t PROGMEM shift_combo[] = {KC_J, KC_U, COMBO_END};
 const uint16_t PROGMEM alt_combo[]   = {KC_K, KC_I, COMBO_END};
 const uint16_t PROGMEM gui_combo[]   = {KC_D, KC_E, COMBO_END};
 
-const uint16_t PROGMEM ui_combo[] = {KC_U, KC_I, COMBO_END};
-const uint16_t PROGMEM re_combo[] = {KC_R, KC_E, COMBO_END};
-
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM fd_combo[] = {KC_F, KC_D, COMBO_END};
+const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};
+
+/* const uint16_t PROGMEM jk_combo[]     = {KC_J, KC_K, COMBO_END}; */
+const uint16_t PROGMEM downup_combo[] = {KC_DOWN, KC_UP, COMBO_END};
+/* const uint16_t PROGMEM fd_combo[]     = {KC_F, KC_D, COMBO_END}; */
 const uint16_t PROGMEM vc_combo[] = {KC_V, KC_C, COMBO_END};
 
 combo_t key_combos[] = {
@@ -136,26 +139,28 @@ combo_t key_combos[] = {
     [KI_ALT]   = COMBO(alt_combo, OSM(MOD_LALT)),
     [DE_GUI]   = COMBO(gui_combo, OSM(MOD_LGUI)),
 
-    [UI_ESC] = COMBO(ui_combo, KC_ESC),
-    [RE_TAB] = COMBO(re_combo, KC_TAB),
+    [JK_ESC]     = COMBO(jk_combo, KC_ESC),
+    [DOWNUP_ESC] = COMBO(downup_combo, KC_ESC),
+    [FD_TAB]     = COMBO(fd_combo, KC_TAB),
+    [KL_FUN]     = COMBO(kl_combo, OSL(FUN)),
 
-    [JK_NEXT_KEY]          = COMBO_ACTION(jk_combo),
-    [FD_NEXT_KEY_FRIEND]   = COMBO_ACTION(fd_combo),
+    /* [JK_NEXT_KEY]          = COMBO_ACTION(jk_combo), */
+    /* [FD_NEXT_KEY_FRIEND]   = COMBO_ACTION(fd_combo), */
     [VC_QUOTATION_END_KEY] = COMBO_ACTION(vc_combo),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
-        case JK_NEXT_KEY:
-            if (pressed) {
-                magic_tap_key(NEXT_KEY);
-            }
-            break;
-        case FD_NEXT_KEY_FRIEND:
-            if (pressed) {
-                magic_tap_key(NEXT_KEY_FRIEND);
-            }
-            break;
+        /* case JK_NEXT_KEY: */
+        /*     if (pressed) { */
+        /*         magic_tap_key(NEXT_KEY); */
+        /*     } */
+        /*     break; */
+        /* case FD_NEXT_KEY_FRIEND: */
+        /*     if (pressed) { */
+        /*         magic_tap_key(NEXT_KEY_FRIEND); */
+        /*     } */
+        /*     break; */
         case VC_QUOTATION_END_KEY:
             if (pressed) {
                 magic_tap_key(QUOTATION_END_KEY);
@@ -198,16 +203,16 @@ void leader_end_user(void) {
     // Fire nav layer after done firststep navigation
     // with tha arrow keys
     if (leader_sequence_one_key(KC_H)) {
-        tap_code16(KC_LEFT);
+        tap_code(KC_LEFT);
         layer_on(NAV);
     } else if (leader_sequence_one_key(KC_J)) {
-        tap_code16(KC_DOWN);
+        tap_code(KC_DOWN);
         layer_on(NAV);
     } else if (leader_sequence_one_key(KC_K)) {
-        tap_code16(KC_UP);
+        tap_code(KC_UP);
         layer_on(NAV);
     } else if (leader_sequence_one_key(KC_L)) {
-        tap_code16(KC_RIGHT);
+        tap_code(KC_RIGHT);
         layer_on(NAV);
 
     } else if (leader_sequence_one_key(KC_F)) {
@@ -287,11 +292,11 @@ void leader_end_user(void) {
 
         /* Paragraph/sentence stuff */
         /* Moving */
-    } else if (leader_sequence_two_keys(KC_G, KC_J)) {
+    } else if (leader_sequence_two_keys(KC_G, KC_D)) {
         MAGIC_SET(NEXT_KEY, NULL, UU_GRAPH_DN);
         MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_GRAPH_UP);
         magic_tap_key(NEXT_KEY);
-    } else if (leader_sequence_two_keys(KC_G, KC_K)) {
+    } else if (leader_sequence_two_keys(KC_G, KC_U)) {
         MAGIC_SET(NEXT_KEY, NULL, UU_GRAPH_DN);
         MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_GRAPH_UP);
         magic_tap_key(NEXT_KEY_FRIEND);
@@ -318,6 +323,38 @@ void leader_end_user(void) {
         MAGIC_SET(NEXT_KEY, NULL, UU_SEL_ALL, U_CPY); // Dummy key to tap. Because first key pressed is unlike NEXT_KEY/NEXT_KEY_FRIEND
         magic_tap_key(NEXT_KEY);
         MAGIC_SET(NEXT_KEY, NULL, UU_SEL_ALL, U_PST);
+
+        /* Other stuff */
+        /* Paste  with formating*/
+    } else if (leader_sequence_two_keys(KC_P, KC_P)) {
+        tap_code16(U_PST);
+        /* Paste  without formating*/
+    } else if (leader_sequence_one_key(KC_P)) {
+        tap_code16(LSFT(U_PST));
+        /* goto start of line */
+    } else if (leader_sequence_one_key(KC_A)) {
+        tap_code(KC_HOME);
+        /* goto end of line */
+    } else if (leader_sequence_one_key(US_OSTR)) {
+        tap_code(KC_END);
+        /* pgdn*/
+    } else if (leader_sequence_two_keys(KC_G, KC_J)) {
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, KC_PGDN);
+        MAGIC_SET(NEXT_KEY, NULL, KC_PGUP);
+        magic_tap_key(NEXT_KEY_FRIEND);
+        /*  pgup */
+    } else if (leader_sequence_two_keys(KC_G, KC_K)) {
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, KC_PGDN);
+        MAGIC_SET(NEXT_KEY, NULL, KC_PGUP);
+        magic_tap_key(NEXT_KEY);
+    } else if (leader_sequence_one_key(KC_R)) {
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, U_RDO);
+        MAGIC_SET(NEXT_KEY, NULL, U_UND);
+        magic_tap_key(NEXT_KEY_FRIEND);
+    } else if (leader_sequence_one_key(KC_U)) {
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, U_RDO);
+        MAGIC_SET(NEXT_KEY, NULL, U_UND);
+        magic_tap_key(NEXT_KEY);
     }
 
     //---------------------------------------------------------------
@@ -413,6 +450,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     layer_on(NUM);
                     return false;
                 }
+            }
+            break;
+
+        case MY_NEXT_KEY:
+            if (record->event.pressed) {
+                magic_tap_key(NEXT_KEY);
+            }
+            break;
+
+        case MY_NEXT_KEY_FRIEND:
+            if (record->event.pressed) {
+                magic_tap_key(NEXT_KEY_FRIEND);
+            }
+            break;
+
+        case MY_SPC:
+            if (record->event.pressed) {
+                // Alternative space to not leave NUM layer.
+                tap_code(KC_SPC);
             }
             break;
     }

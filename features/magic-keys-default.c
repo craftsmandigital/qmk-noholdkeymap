@@ -7,7 +7,7 @@ void default_shift_one_shot(uint16_t keycodes_to_process[]) {
 
 void magic_key_set_all(uint16_t key) {
     uint16_t nextQuotationMark = 0;
-
+    uint8_t  mods              = get_mods() | get_oneshot_mods();
     switch (key) {
         // Common processing for all parentheses and quotation mark characters
 
@@ -40,9 +40,21 @@ void magic_key_set_all(uint16_t key) {
             // Processing for all other characters
 
         case KC_DOT:
-
             MAGIC_SET(NEXT_KEY, default_shift_one_shot, KC_SPACE);
             MAGIC_SET(NEXT_KEY_FRIEND, default_shift_one_shot, KC_ENT);
+            break;
+
+        case KC_ENT:
+            MAGIC_SET(NEXT_KEY, NULL, KC_ENT);
+            MAGIC_SET(NEXT_KEY_FRIEND, default_shift_one_shot, KC_ENT);
+            break;
+
+        case KC_S:  // CTRL + S
+        case KC_F4: // ALT + F4
+            if ((mods & MOD_BIT(KC_LALT) && key == KC_F4) || (mods & MOD_BIT(KC_LCTL) && key == KC_S)) {
+                MAGIC_SET(NEXT_KEY_FRIEND, NULL, LALT(KC_F4));
+                MAGIC_SET(NEXT_KEY, NULL, LCTL(KC_S));
+            }
             break;
     }
 
