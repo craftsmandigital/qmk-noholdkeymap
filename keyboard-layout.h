@@ -54,20 +54,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =  {
     //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
         KC_A , KC_S , KC_D , KC_F , KC_G ,                      KC_H , KC_J , KC_K , KC_L ,US_OSTR,
     //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-        KC_Z , KC_X , KC_C , KC_V , QK_LEAD ,                  KC_N , KC_M ,KC_BSPC,US_ARNG,US_AE,
+        KC_Z , KC_X , KC_C , KC_V , KC_B,  /* OSL(SYM), */    KC_N ,KC_M,MY_NEXT_KEY,US_ARNG,US_AE,
     //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
-      U_NP,U_NP,MY_NEXT_KEY_FRIEND,KC_SPC,QK_LEAD,   OSL(NUM),OSL(SYM),MY_NEXT_KEY,         U_NP,U_NP
+      U_NP,U_NP,         QK_LEAD,KC_SPC,OSL(SYM),LT(FUN,KC_ENT),KC_BSPC,OSL(NUM),         U_NP,U_NP
     //                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
     ),
   [NUM] = LAYOUT_miryoku(
     //┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
-      KC_PLUS, KC_7 , KC_8 , KC_9 ,KC_ASTR,                   KC_PCMM,KC_ENT,KC_PDOT,KC_NO, KC_NO,
+      KC_PLUS, KC_7 , KC_8 , KC_9 ,KC_ASTR,                   KC_COMM,KC_DOT,KC_NO, KC_NO, KC_NO,
     //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-      KC_PMNS, KC_4 , KC_5 , KC_6 ,KC_PSLS,                   KC_LEFT,KC_DOWN,KC_UP,KC_RGHT,KC_NO,
+      KC_MINS, KC_4 , KC_5 , KC_6 ,KC_SLSH,                   KC_LEFT,KC_DOWN,KC_UP,KC_RGHT,KC_NO,
     //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-      KC_PERC, KC_1 , KC_2 , KC_3 ,KC_EQL,                    KC_NO , KC_NO,KC_TRNS,KC_NO, KC_NO,
+      KC_PERC, KC_1 , KC_2 , KC_3 ,KC_EQL,                    KC_NO , KC_NO, MY_SPC, KC_NO, KC_NO,
     //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
-      U_NP,U_NP,            KC_0, KC_TRNS, KC_LT,       KC_GT ,KC_TRNS,MY_SPC,         U_NP,U_NP
+      U_NP,U_NP,            KC_0, KC_TRNS,KC_TRNS,     KC_TRNS,KC_TRNS,KC_NO,         U_NP,U_NP
     //                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
     ),
   [NAV] = LAYOUT_miryoku(
@@ -76,20 +76,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =  {
     //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
     KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                 KC_LEFT,KC_DOWN,KC_UP,KC_RGHT,KC_TRNS,
     //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                KC_TRNS,KC_TRNS,KC_PGUP,KC_TRNS,KC_TRNS,
     //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
-      U_NP,U_NP,           KC_PGDN,KC_TRNS,KC_TRNS,   KC_TRNS,KC_TRNS,KC_PGUP,         U_NP,U_NP
+      U_NP,U_NP,          KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,KC_TRNS,KC_TRNS,         U_NP,U_NP
     //                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
   ),
   [SYM] = LAYOUT_miryoku(
     //┌──────┬──────┬──────┬──────┬──────┐                    ┌──────┬──────┬──────┬──────┬──────┐
-    KC_PLUS,KC_EXLM,KC_SCLN,KC_QUOT,KC_ASTR,                  KC_COMM,KC_ENT,KC_DOT,CWM_TOGG,KC_CAPS,
+    KC_PLUS,KC_EXLM,KC_SCLN,KC_QUOT,KC_ASTR,                 KC_COMM,KC_DOT,CWM_TOGG,KC_CAPS,KC_NO,
     //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-    KC_PMNS,KC_QUES,KC_COLN,KC_DQUO,KC_PSLS,                 KC_LCBR,KC_LPRN,KC_LBRC,KC_DLR,KC_UNDS,
+    KC_MINS,KC_QUES,KC_COLN,KC_DQUO,KC_SLSH,                 KC_LCBR,KC_LPRN,KC_LBRC,KC_DLR,KC_UNDS,
     //├──────┼──────┼──────┼──────┼──────┤                    ├──────┼──────┼──────┼──────┼──────┤
-     KC_PERC, KC_NO,KC_PIPE,KC_GRV,KC_EQL,                   KC_CIRC,KC_TILD,KC_DEL,KC_AMPR,KC_HASH,
+     KC_PERC,KC_TILD,KC_CIRC,KC_GRV,KC_EQL,                 KC_RCBR,KC_RPRN,KC_RBRC,KC_AMPR,KC_HASH,
     //└──────┴──────┴──────┼──────┼──────┼──────┐      ┌──────┼──────┼──────┼──────┴──────┴──────┘
-      U_NP,U_NP,            U_UND,KC_BSLS,KC_LT,       KC_GT,  KC_AT, U_RDO,         U_NP,U_NP
+      U_NP,U_NP,          KC_PIPE,KC_BSLS,KC_LT,        KC_GT, KC_AT, KC_NO,         U_NP,U_NP
     //                     └──────┴──────┴──────┘      └──────┴──────┴──────┘
   ),
   [FUN] = LAYOUT_miryoku(

@@ -45,15 +45,22 @@ void magic_key_set_all(uint16_t key) {
             break;
 
         case KC_ENT:
-            MAGIC_SET(NEXT_KEY, NULL, KC_ENT);
-            MAGIC_SET(NEXT_KEY_FRIEND, default_shift_one_shot, KC_ENT);
+            /* if (!(mods & MOD_BIT(KC_LCTL))) { */
+            MAGIC_SET(NEXT_KEY, default_shift_one_shot, KC_ENT);
+            /* } */
             break;
 
-        case KC_S:  // CTRL + S
+        /* case KC_S:  // CTRL + S */
         case KC_F4: // ALT + F4
-            if ((mods & MOD_BIT(KC_LALT) && key == KC_F4) || (mods & MOD_BIT(KC_LCTL) && key == KC_S)) {
+            if ((mods & MOD_BIT(KC_LALT) && key == KC_F4) /* || (mods & MOD_BIT(KC_LCTL) && key == KC_S) */) {
                 MAGIC_SET(NEXT_KEY_FRIEND, NULL, LALT(KC_F4));
                 MAGIC_SET(NEXT_KEY, NULL, LCTL(KC_S));
+            }
+            break;
+
+        case KC_BSPC: // CTRL + BSPC
+            if (mods & MOD_BIT(KC_LCTL)) {
+                MAGIC_SET(NEXT_KEY, NULL, LCTL(KC_BSPC));
             }
             break;
     }

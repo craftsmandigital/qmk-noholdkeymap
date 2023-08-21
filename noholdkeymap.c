@@ -29,8 +29,8 @@ typedef enum {
     TOGGLE_OF_IF_ON,
 } togle_actions_t;
 
-void caps_word(togle_actions_t action, uint8_t key) {
-    bool capsOn;
+bool caps_word(togle_actions_t action, uint8_t key) {
+    bool capsOn, noESCtap = true;
     capsOn = (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK));
     if (action == TOGGLE_ON && !capsOn) {
         // Caps Lock is off
@@ -41,20 +41,25 @@ void caps_word(togle_actions_t action, uint8_t key) {
             case KC_ESC:
             case KC_ENTER:
                 tap_code(KC_CAPS);
+                noESCtap = (key != KC_ESC);
         }
     }
+    return noESCtap;
 }
 
-void num_word(togle_actions_t action, uint8_t key) {
-    bool layerOn = (IS_LAYER_ON(NUM));
+bool num_word(togle_actions_t action, uint8_t key) {
+    bool noESCtap = true;
+    bool layerOn  = (IS_LAYER_ON(NUM));
     if (action == TOGGLE_OF_IF_ON && layerOn) {
         // The NUM layer is active
         switch (key) {
             case KC_SPC:
             case KC_ESC:
                 layer_off(NUM);
+                noESCtap = (key != KC_ESC);
         }
     }
+    return noESCtap;
 }
 
 void turn_off_nav_layer(uint8_t key) {
@@ -94,7 +99,7 @@ enum combo_events {
     DOWNUP_ESC,
     JK_ESC,
     FD_TAB,
-
+    DS_NEXT_KEY_FRIEND,
     /* JK_NEXT_KEY, */
     /* FD_NEXT_KEY_FRIEND, */
     VC_QUOTATION_END_KEY,
@@ -117,6 +122,7 @@ const uint16_t PROGMEM gui_combo[]   = {KC_D, KC_E, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM fd_combo[] = {KC_F, KC_D, COMBO_END};
 const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM ds_combo[] = {KC_D, KC_S, COMBO_END};
 
 /* const uint16_t PROGMEM jk_combo[]     = {KC_J, KC_K, COMBO_END}; */
 const uint16_t PROGMEM downup_combo[] = {KC_DOWN, KC_UP, COMBO_END};
@@ -146,6 +152,7 @@ combo_t key_combos[] = {
 
     /* [JK_NEXT_KEY]          = COMBO_ACTION(jk_combo), */
     /* [FD_NEXT_KEY_FRIEND]   = COMBO_ACTION(fd_combo), */
+    [DS_NEXT_KEY_FRIEND]   = COMBO_ACTION(ds_combo),
     [VC_QUOTATION_END_KEY] = COMBO_ACTION(vc_combo),
 };
 
@@ -156,11 +163,15 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         /*         magic_tap_key(NEXT_KEY); */
         /*     } */
         /*     break; */
-        /* case FD_NEXT_KEY_FRIEND: */
-        /*     if (pressed) { */
-        /*         magic_tap_key(NEXT_KEY_FRIEND); */
-        /*     } */
-        /*     break; */
+        case DS_NEXT_KEY_FRIEND:
+            if (pressed) {
+                if (IS_LAYER_ON(NAV)) {
+                    tap_code(KC_PGDN);
+                } else {
+                    magic_tap_key(NEXT_KEY_FRIEND);
+                }
+            }
+            break;
         case VC_QUOTATION_END_KEY:
             if (pressed) {
                 magic_tap_key(QUOTATION_END_KEY);
@@ -273,15 +284,15 @@ void leader_end_user(void) {
     } else if (leader_sequence_two_keys(KC_V, KC_V)) {
         MAGIC_SET(NEXT_KEY, NULL, UU_SEL_LINE); // Dummy key to tap. Because first key pressed is unlike NEXT_KEY/NEXT_KEY_FRIEND
         magic_tap_key(NEXT_KEY);
-        MAGIC_SET(NEXT_KEY, NULL, S(KC_DOWN));
-        MAGIC_SET(NEXT_KEY_FRIEND, NULL, S(KC_UP));
+        MAGIC_SET(NEXT_KEY, NULL, S(KC_UP));
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, S(KC_DOWN));
 
         /* Deleting */
     } else if (leader_sequence_two_keys(KC_D, KC_D)) {
         MAGIC_SET(NEXT_KEY, NULL, UU_SEL_LINE, U_CUT); // Dummy key to tap. Because first key pressed is unlike NEXT_KEY/NEXT_KEY_FRIEND
         magic_tap_key(NEXT_KEY);
-        MAGIC_SET(NEXT_KEY, NULL, UU_SEL_LINE, KC_DEL);
-        MAGIC_SET(NEXT_KEY_FRIEND, NULL, KC_UP, UU_SEL_LINE, KC_DEL);
+        MAGIC_SET(NEXT_KEY, NULL, KC_UP, UU_SEL_LINE, KC_DEL);
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_LINE, KC_DEL);
 
         /* Copying */
     } else if (leader_sequence_two_keys(KC_Y, KC_Y)) {
@@ -293,17 +304,17 @@ void leader_end_user(void) {
         /* Paragraph/sentence stuff */
         /* Moving */
     } else if (leader_sequence_two_keys(KC_G, KC_D)) {
-        MAGIC_SET(NEXT_KEY, NULL, UU_GRAPH_DN);
+        MAGIC_SET(NEXT_KEY, NULL, UU_GRAPH_UP);
         MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_GRAPH_UP);
         magic_tap_key(NEXT_KEY);
     } else if (leader_sequence_two_keys(KC_G, KC_U)) {
-        MAGIC_SET(NEXT_KEY, NULL, UU_GRAPH_DN);
+        MAGIC_SET(NEXT_KEY, NULL, UU_GRAPH_UP);
         MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_GRAPH_UP);
         magic_tap_key(NEXT_KEY_FRIEND);
         /* Selecting */
     } else if (leader_sequence_two_keys(KC_V, KC_P)) {
-        MAGIC_SET(NEXT_KEY, NULL, UU_SEL_GRAPH_DN);
-        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_GRAPH_UP);
+        MAGIC_SET(NEXT_KEY, NULL, UU_SEL_GRAPH_UP);
+        MAGIC_SET(NEXT_KEY_FRIEND, NULL, UU_SEL_GRAPH_DN);
         magic_tap_key(NEXT_KEY);
 
         /* All stuff */
@@ -337,16 +348,26 @@ void leader_end_user(void) {
         /* goto end of line */
     } else if (leader_sequence_one_key(US_OSTR)) {
         tap_code(KC_END);
+        /* Delete one character */
+    } else if (leader_sequence_one_key(KC_BSPC)) {
+        MAGIC_SET(NEXT_KEY, NULL, KC_DEL);
+        magic_tap_key(NEXT_KEY);
         /* pgdn*/
-    } else if (leader_sequence_two_keys(KC_G, KC_J)) {
+    } else if (leader_sequence_two_keys(KC_G, KC_D)) {
         MAGIC_SET(NEXT_KEY_FRIEND, NULL, KC_PGDN);
         MAGIC_SET(NEXT_KEY, NULL, KC_PGUP);
         magic_tap_key(NEXT_KEY_FRIEND);
         /*  pgup */
-    } else if (leader_sequence_two_keys(KC_G, KC_K)) {
+    } else if (leader_sequence_two_keys(KC_G, KC_U)) {
         MAGIC_SET(NEXT_KEY_FRIEND, NULL, KC_PGDN);
         MAGIC_SET(NEXT_KEY, NULL, KC_PGUP);
         magic_tap_key(NEXT_KEY);
+        /* go to start of dockument*/
+    } else if (leader_sequence_two_keys(KC_G, KC_G)) {
+        tap_code16(LCTL(KC_HOME));
+        /*  go to end of dockument */
+    } else if (leader_sequence_three_keys(KC_G, KC_G, KC_G)) {
+        tap_code16(LCTL(KC_END));
     } else if (leader_sequence_one_key(KC_R)) {
         MAGIC_SET(NEXT_KEY_FRIEND, NULL, U_RDO);
         MAGIC_SET(NEXT_KEY, NULL, U_UND);
@@ -355,10 +376,10 @@ void leader_end_user(void) {
         MAGIC_SET(NEXT_KEY_FRIEND, NULL, U_RDO);
         MAGIC_SET(NEXT_KEY, NULL, U_UND);
         magic_tap_key(NEXT_KEY);
+    } else if (leader_sequence_one_key(QK_LEAD)) {
+        tap_code(KC_B);
     }
-
     //---------------------------------------------------------------
-
     //---------------------------------------------------------------
 }
 
@@ -420,10 +441,11 @@ void organize_layer_disconnect(uint8_t	layerToSet		// BASE, SYM, NAV, NUM, ...
 
 // Macro stuff
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    static uint16_t hold_timer;
     if (record->event.pressed) {
         magic_key_set_all(keycode);
-        caps_word(TOGGLE_OF_IF_ON, keycode);
-        num_word(TOGGLE_OF_IF_ON, keycode);
+        if (!caps_word(TOGGLE_OF_IF_ON, keycode)) return false;
+        if (!num_word(TOGGLE_OF_IF_ON, keycode)) return false;
     } else {
         turn_off_nav_layer(keycode);
     }
@@ -440,15 +462,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CWM_TOGG:
             if (record->event.pressed) {
                 caps_word(TOGGLE_ON, 0);
+                // This is a trick to keep CAPS-WORD on, when pressing an alternative space.
+                MAGIC_SET(NEXT_KEY, NULL, KC_SPACE);
             }
             break;
 
         case OSL(NUM):
             if (record->event.pressed) {
-                if ((get_oneshot_mods() == 0) && (get_mods() == 0)) {
-                    // Either one-shot mods or ordinary mods is active
-                    layer_on(NUM);
-                    return false;
+                hold_timer = timer_read();
+            } else {
+                if (timer_elapsed(hold_timer) < TAPPING_TERM) {
+                    // Key was tapped
+                    if ((get_oneshot_mods() == 0) && (get_mods() == 0)) {
+                        // Either one-shot mods or ordinary mods is active
+                        layer_on(NUM);
+                        return false;
+                    } else {
+                        // Key was held
+                        // Do nothing. This alows holding of key
+                    }
                 }
             }
             break;
