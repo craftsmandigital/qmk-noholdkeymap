@@ -226,11 +226,11 @@ void leader_end_user(void) {
         tap_code(KC_RIGHT);
         layer_on(NAV);
 
-    } else if (leader_sequence_one_key(KC_F)) {
+    //} else if (leader_sequence_one_key(KC_F)) {
         // Leader, f => Types the below string
         // SEND_STRING("QMK is awesome.");
         // layer_on(FUN);
-        set_oneshot_layer(FUN, ONESHOT_START);
+        //set_oneshot_layer(FUN, ONESHOT_START);
     } else if (leader_sequence_one_key(KC_D)) {
         MAGIC_SET(NEXT_KEY, NULL, U_PST);
         tap_code16(U_CUT);
@@ -378,64 +378,15 @@ void leader_end_user(void) {
         magic_tap_key(NEXT_KEY);
     } else if (leader_sequence_one_key(QK_LEAD)) {
         tap_code(KC_B);
+    } else if (leader_sequence_one_key(KC_X)) {
+        tap_code16(LCTL(KC_F4));
+    } else if (leader_sequence_one_key(KC_Q)) {
+        tap_code16(LALT(KC_F4));
     }
     //---------------------------------------------------------------
     //---------------------------------------------------------------
 }
 
-/*
-uint16_t remember_key(	uint8_t  type, 		// type of remembering --> PREVIOUS_KEY, NEXT_KEY, NEXT_QUOTATION_KEY"
-                        uint8_t  action,	// what to do --> GET/SET keyvalue
-                        uint16_t keycode) {	// keycode to SET. NULL when GET is registerd
-// Function returns a rememberd keycode if GET action is set.
-// If SET action is present then it stores the keycode and returns NULL.
-    static uint16_t previousKey = KC_NO, nextKey = KC_NO, nextQuotKey = KC_NO, returnKey = KC_NO;
-
-    if (action == GET){
-        if (type == PREVIOUS_KEY){
-            returnKey = previousKey;
-        } else if (type == NEXT_KEY){
-            returnKey = nextKey;
-        } else if (type == NEXT_QUOTATION_KEY){
-            returnKey = nextQuotKey;
-        }
-    } else if (action == SET){
-        if (type == PREVIOUS_KEY){
-            previousKey = keycode;
-        } else if (type == NEXT_KEY){
-            nextKey = keycode;
-        } else if (type == NEXT_QUOTATION_KEY){
-            nextQuotKey = keycode;
-        }
-    }
-
-    return returnKey;
-}
- */
-// --------------------------------------------------------------------------------
-
-/*
-void organize_layer(uint8_t	layerToSet		// BASE, SYM, NAV, NUM, ...
-                    ,bool	oneShot) {// TRUE if oneShot behaviour else FALSE when PERSISTENT layer
-    static uint8_t currentLayer = BASE;
-    currentLayer = layerToSet;
-}
-
-void organize_layer_connect(uint8_t	layerToSet		// BASE, SYM, NAV, NUM, ...
-                    ,bool	oneShot) {// TRUE if oneShot behaviour else FALSE when PERSISTENT layer
-
-}
-
-void organize_layer_check(uint8_t	layerToSet		// BASE, SYM, NAV, NUM, ...
-                    ,bool	oneShot) {// TRUE if oneShot behaviour else FALSE when PERSISTENT layer
-
-}
-
-void organize_layer_disconnect(uint8_t	layerToSet		// BASE, SYM, NAV, NUM, ...
-                    ,bool	oneShot) {// TRUE if oneShot behaviour else FALSE when PERSISTENT layer
-
-}
-*/
 
 // --------------------------------------------------------------------------------
 
@@ -504,230 +455,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
     }
-    /*
 
-        case KC_SPC:
-            if (record->event.pressed) {
-                // when layer is on go back to caling layer and pres space
-                if (IS_LAYER_ON(NUM)){
-                    layer_invert(NUM);
-                    tap_code(KC_SPC);
-                    return false;
-                }
-            }
-            break;
-        case OSL(NUM):
-            if (record->event.pressed) {
-                // when modifier keys is held then prosess key as usual.
-                // When no mods then togle SYM layer permanent
-                const uint8_t mods = get_mods() | get_oneshot_mods();
-                if (!mods){
-                  layer_invert(NUM);
-                  return false;
-                }
-            }
-            break;
-        // case MY_ONESHOT:
-            // if (record->event.pressed) {
-               // set_oneshot_layer(SYM, ONESHOT_START);
-               // holding_oneshot_layer = true;
-            // } return false;
-            // break;
-        case PAREN:
-            if (record->event.pressed) {
-                // when key ( is pressed
-                SEND_STRING("()"SS_TAP(X_LEFT));
-            }
-            break;
-        case BRACKET:
-            if (record->event.pressed) {
-                // when key [ is pressed
-                SEND_STRING("[]"SS_TAP(X_LEFT));
-            }
-            break;
-        case CURLEY:
-            if (record->event.pressed) {
-                // when key { is pressed
-                SEND_STRING("{}"SS_TAP(X_LEFT));
-            }
-            break;
-        case QUOT:
-            if (record->event.pressed) {
-                // when key ' is pressed
-                SEND_STRING("''"SS_TAP(X_LEFT));
-            }
-            break;
-        case DQUOT:
-            if (record->event.pressed) {
-                // when key " is pressed
-                SEND_STRING("\"\""SS_TAP(X_LEFT));
-            }
-            break;
-        // The four next keys goes to their extremes on long tapp
-        // and do shorter travel on short press
-        case MY_END:
-            if (record->event.pressed) {
-                my_key_pressed_timer = timer_read();
-            } else {
-                // goes by word to the right when short pressed.
-                if (timer_elapsed(my_key_pressed_timer) < LEADER_TIMEOUT) {
-                    register_code(KC_LCTL);
-                    tap_code(KC_RGHT);
-                    unregister_code(KC_LCTL);
-                } else {
-                    // goes to end of line on long press
-                    tap_code(KC_END);
-                }
-            }
-            break;
-            case MY_HOME:
-            if (record->event.pressed) {
-                my_key_pressed_timer = timer_read();
-            } else {
-                if (timer_elapsed(my_key_pressed_timer) < LEADER_TIMEOUT) {
-                    register_code(KC_LCTL);
-                    tap_code(KC_LEFT);
-                    unregister_code(KC_LCTL);
-                } else {
-                    tap_code(KC_HOME);
-                }
-            }
-            break;
-            case MY_COPY:
-            if (record->event.pressed) {
-                my_key_pressed_timer = timer_read();
-            } else {
-                if (timer_elapsed(my_key_pressed_timer) < LEADER_TIMEOUT) {
-                    register_code(KC_LCTL);
-                    tap_code(KC_C);
-                    unregister_code(KC_LCTL);
-                } else {
-                    register_code(KC_LCTL);
-                    tap_code(KC_A);
-                    unregister_code(KC_LCTL);
-                }
-            }
-            break;
-            case MY_UNDRDO:
-            if (record->event.pressed) {
-                my_key_pressed_timer = timer_read();
-            } else {
-                if (timer_elapsed(my_key_pressed_timer) < LEADER_TIMEOUT) {
-                    register_code(KC_LCTL);
-                    tap_code(KC_Z);
-                    unregister_code(KC_LCTL);
-                } else {
-                    register_code(KC_LCTL);
-                    tap_code(KC_Y);
-                    unregister_code(KC_LCTL);
-                }
-            }
-            break;
-            case MY_PASTE:
-            if (record->event.pressed) {
-                my_key_pressed_timer = timer_read();
-            } else {
-                register_code(KC_LCTL);
-                if (timer_elapsed(my_key_pressed_timer) < LEADER_TIMEOUT) {
-                    register_code(KC_LSFT);
-                    tap_code(KC_V);
-                    unregister_code(KC_LSFT);
-                } else {
-                    tap_code(KC_V);
-                }
-                unregister_code(KC_LCTL);
-            }
-            break;
-            case MY_PGDN:
-            if (record->event.pressed) {
-                my_key_pressed_timer = timer_read();
-            } else {
-                if (timer_elapsed(my_key_pressed_timer) < LEADER_TIMEOUT) {
-                    tap_code(KC_PGDN);
-                } else {
-                    register_code(KC_LCTL);
-                    tap_code(KC_END);
-                    unregister_code(KC_LCTL);
-
-                }
-            }
-            break;
-            case MY_PGUP:
-            if (record->event.pressed) {
-                my_key_pressed_timer = timer_read();
-            } else {
-                if (timer_elapsed(my_key_pressed_timer) < LEADER_TIMEOUT) {
-                    tap_code(KC_PGUP);
-                } else {
-                    register_code(KC_LCTL);
-                    tap_code(KC_HOME);
-                    unregister_code(KC_LCTL);
-
-                }
-            }
-            break;
-            // Nordic caracter stuff is dependent of autohotkey
-            // https://www.thenickmay.com/how-to-expand-text-for-free-with-autohotkey/
-            // When keypress is shifted then keypress is different the char "-" becoms a "_"
-            // auto hotkey schipt handles this and expand the right nordic character
-            case _AA	:	// å Å
-            if (record->event.pressed) {
-                    SEND_STRING("-&a");  // Becomes _&a when shifted
-            }
-            break;
-            case _AE	:	// æ Æ
-            if (record->event.pressed) {
-                    SEND_STRING("-&e");  // Becomes _&e when shifted
-            }
-            break;
-            // case _OE	:	// ø Ø
-            // if (record->event.pressed) {
-                    // SEND_STRING("-&o");  // Becomes _&o when shifted
-            // }
-            // break;
-            case RGUI_T(_OE)	:	// ø Ø
-            // This was extremely difficult to program, because of the nature of GUI modifier
-            // It is also triggered on tap. luckyly the solution was quite easy. The solution was found on website under:
-            // https://github.com/qmk/qmk_firmware/blob/master/docs/mod_tap.md#changing-tap-function.
-            // The moust obious solution was something like the website under.
-            // But doestnt work because of the nature of the GUI modifier
-            // https://thomasbaart.nl/2018/12/09/qmk-basics-tap-and-hold-actions/#a-workaround-for-mod-tap
-
-            if (record->tap.count && record->event.pressed) {
-                SEND_STRING("-&o"); // Send KC_DQUO on tap
-                return false;        // Return false to ignore further processing of key
-            }
-            break;
-
-        }
-        */
     return true;
 };
-
-/*
- void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-
-    switch (keycode) {
-
-    case MY_GUI_NUM:
-    // This is a oneshotlayer and oneshot modifier at the same time
-    // SYM layer and GUI modifier at once.
-    // This makes it easy to switch apps in the taskbar in windows 10.
-    // The state before next key pressed is num layer and gui modifier.
-    // When user press a nuber key, then it triggers to open or switching to that app in taskbar
-        if (record->event.pressed) {
-            // layer_on(NUM);
-            set_oneshot_layer(NUM, ONESHOT_START);
-            clear_oneshot_layer_state(ONESHOT_PRESSED);
-
-            set_oneshot_mods(MOD_RGUI);
-        } else {
-            // clear_oneshot_layer_state(ONESHOT_PRESSED);
-        }
-        break;
-
-    }
-
-};
-*/
