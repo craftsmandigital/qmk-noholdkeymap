@@ -382,8 +382,11 @@ void leader_end_user(void) {
         tap_code16(LCTL(KC_F4));
     } else if (leader_sequence_one_key(KC_Q)) {
         tap_code16(LALT(KC_F4));
+    } else if (leader_sequence_one_key(KC_M)) {
+        tap_code16(LSFT(KC_F10));
     }
     //---------------------------------------------------------------
+	
     //---------------------------------------------------------------
 }
 
