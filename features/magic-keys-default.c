@@ -5,8 +5,11 @@ void default_shift_one_shot(uint16_t keycodes_to_process[]) {
     set_oneshot_mods(MOD_BIT(KC_RSFT));
 }
 
-void magic_key_set_all(uint16_t key) {
+
+// returns TRUE if you whant to do some extra stuff for this group of keys  in the "process_record_user"
+bool magic_key_set_all(uint16_t key) {
     uint16_t nextQuotationMark = 0;
+	// uint16_t quotationMarkNeedSpace = 0;
     uint8_t  mods              = get_mods() | get_oneshot_mods();
     switch (key) {
         // Common processing for all parentheses and quotation mark characters
@@ -16,6 +19,7 @@ void magic_key_set_all(uint16_t key) {
         case KC_DQUO: // Processing for double quotation mark (")
         case KC_GRV:  // Processing for backtick (`)
             nextQuotationMark = key;
+			// quotationMarkNeedSpace = KC_SPACE; // For some reason "keymap_us_international.h" neds a space afterwords to tapp some keys
             break;
 
         // Processing for parentheses
@@ -67,23 +71,29 @@ void magic_key_set_all(uint16_t key) {
 
     if (nextQuotationMark != 0) {
         uint16_t keycodes[3];
-
         // NEXT_KEY
-        keycodes[0] = nextQuotationMark;
-        keycodes[1] = KC_LEFT;
+        //keycodes[0] = nextQuotationMark;
+        keycodes[0] = KC_RIGHT;
+        keycodes[1] = 0;
         keycodes[2] = 0;
         magic_set(NEXT_KEY, NULL, keycodes);
 
         // NEXT_KEY_FRIEND
-        keycodes[0] = KC_RIGHT;
+        keycodes[0] = KC_DEL;
         keycodes[1] = 0;
         keycodes[2] = 0;
         magic_set(NEXT_KEY_FRIEND, NULL, keycodes);
 
         // QUOTATION_END_KEY
         keycodes[0] = nextQuotationMark;
-        keycodes[1] = 0;
+        keycodes[1] = 0; //quotationMarkNeedSpace;
         keycodes[2] = 0;
         magic_set(QUOTATION_END_KEY, NULL, keycodes);
+		
+		// tap_code16(key);
+		// tap_code16(nextQuotationMark);
+		// tap_code16(KC_LEFT);
+		
     }
+	return (nextQuotationMark != 0);
 }

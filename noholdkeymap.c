@@ -386,7 +386,7 @@ void leader_end_user(void) {
         tap_code16(LSFT(KC_F10));
     }
     //---------------------------------------------------------------
-	
+
     //---------------------------------------------------------------
 }
 
@@ -396,14 +396,22 @@ void leader_end_user(void) {
 // Macro stuff
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t hold_timer;
+	bool quotChar = false;
     if (record->event.pressed) {
-        magic_key_set_all(keycode);
+        quotChar = magic_key_set_all(keycode);
         if (!caps_word(TOGGLE_OF_IF_ON, keycode)) return false;
         if (!num_word(TOGGLE_OF_IF_ON, keycode)) return false;
     } else {
         turn_off_nav_layer(keycode);
     }
-
+	
+	if ((quotChar) && (record->event.pressed)){
+		tap_code16(keycode);
+		magic_tap_key(QUOTATION_END_KEY);
+		tap_code(KC_LEFT);
+		return false;
+    }
+	
     // if (IS_LAYER_ON(FUN) && !record->event.pressed){
     // clear_oneshot_layer_state(ONESHOT_PRESSED);
     // }
@@ -454,6 +462,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MY_SPC:
             if (record->event.pressed) {
                 // Alternative space to not leave NUM layer.
+                tap_code(KC_SPC);
+            }
+            break;
+	    case KC_CIRC: // ^
+        case KC_TILD: // ~
+		    if (!record->event.pressed) {
+                // Some codes neds an extra space afterwords to show up in "keymap_us_international.h"
                 tap_code(KC_SPC);
             }
             break;
