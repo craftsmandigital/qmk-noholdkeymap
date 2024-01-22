@@ -1,7 +1,7 @@
 # joppa
 
 All my keyboard collected in one userspace. 
-
+qmk version 1.1.1
 ## The joppa layout
 
 The layout is inspired by [Miryoku](https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku) keyboard layout, but there are quite differences. I admit that I have stolen much of his setup, because it is so vel suited to support a bunce of keyboards.
