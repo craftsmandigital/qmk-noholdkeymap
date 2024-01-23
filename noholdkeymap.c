@@ -31,7 +31,8 @@ typedef enum {
 
 bool caps_word(togle_actions_t action, uint8_t key) {
     bool capsOn, noESCtap = true;
-    capsOn = (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK));
+//    capsOn = (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK));
+    capsOn = host_keyboard_led_state().caps_lock;
     if (action == TOGGLE_ON && !capsOn) {
         // Caps Lock is off
         tap_code(KC_CAPS);

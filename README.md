@@ -1,8 +1,8 @@
-# joppa
+# noholdkeymap
 
 All my keyboard collected in one userspace. 
-qmk version 1.1.1
-## The joppa layout
+This compile is based on qmk release tag: 0.23.6
+## The noholdkeymap layout
 
 The layout is inspired by [Miryoku](https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku) keyboard layout, but there are quite differences. I admit that I have stolen much of his setup, because it is so vel suited to support a bunce of keyboards.
 
@@ -47,13 +47,13 @@ This is a hardwired keyboard witch is built on [instructions on these page](http
 Trouble when flashing the keyboard. All keys are dead if these criteria's is not met:
 A litle tweak has to be done in this file
 [.../qmk_firmware/keyboards/handwired/dactyl_manuform/3x5_3
-/info.json](https://github.com/qmk/qmk_firmware/blob/master/keyboards/handwired/dactyl_manuform/3x5_3/info.json). The property `diode_direction`. has to be set to `COL2ROW` instead of `ROW2COL`.
+/info.json](https://github.com/qmk/qmk_firmware/blob/master/keyboards/handwired/dactyl_minidox/info.json). The property `diode_direction`. has to be set to `COL2ROW` instead of `ROW2COL`.
 
 ```json
     "diode_direction": "COL2ROW",
 ```
 
-In the file [.../qmk_firmware/users/joppa/rules.mk](https://github.com/qmk/qmk_firmware/blob/master/users/joppa/rules.mk), these lines of config must be present:
+In the file [.../qmk_firmware/users/noholdkeymap/rules.mk](https://github.com/craftsmandigital/qmk-noholdkeymap/blob/main/rules.mk), these lines of config must be present:
 
 ```bash
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
@@ -66,5 +66,5 @@ RGB_MATRIX_SUPPORTED = no
 #### Here is the command to flash the Dactyl manuform 3x5_3
 
 ```bash
-make handwired/dactyl_manuform/3x5_3:noholdkeymap
+make handwired/dactyl_minidox:noholdkeymap
 ```
